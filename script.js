@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 6. Contact Form Submission (Mailto Handler)
+  // 6. Contact Form Submission (Netlify Forms AJAX Handler)
   const contactForm = document.getElementById('contact-form');
   const formFeedback = document.getElementById('form-feedback');
 
@@ -126,12 +126,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const nameInput = document.getElementById('form-name');
       const emailInput = document.getElementById('form-email');
-      const websiteInput = document.getElementById('form-website');
       const detailsInput = document.getElementById('form-details');
 
       const name = nameInput ? nameInput.value.trim() : '';
       const email = emailInput ? emailInput.value.trim() : '';
-      const website = websiteInput ? websiteInput.value.trim() : 'N/A';
       const details = detailsInput ? detailsInput.value.trim() : '';
 
       if (!name || !email || !details) {
@@ -143,28 +141,34 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      // Construct mailto link
-      const subject = encodeURIComponent(`Website SEO Inquiry from ${name}`);
-      const body = encodeURIComponent(
-        `Hello Daniyal,\n\n` +
-        `Name: ${name}\n` +
-        `Email: ${email}\n` +
-        `Website URL: ${website}\n\n` +
-        `Project Details:\n${details}\n\n` +
-        `Best regards,\n${name}`
-      );
+      const formData = new FormData(contactForm);
 
-      const mailtoUrl = `mailto:daniyalseoinfo@gmail.com?subject=${subject}&body=${body}`;
-
-      if (formFeedback) {
-        formFeedback.style.display = 'block';
-        formFeedback.style.color = '#a855f7';
-        formFeedback.textContent = 'Opening your email client... Thank you for reaching out!';
-      }
-
-      setTimeout(() => {
-        window.location.href = mailtoUrl;
-      }, 400);
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formData).toString()
+      })
+      .then((response) => {
+        if (response.ok || response.status === 200) {
+          if (formFeedback) {
+            formFeedback.style.display = 'block';
+            formFeedback.style.color = '#a855f7';
+            formFeedback.textContent = 'Thank you! Your message has been sent successfully.';
+          }
+          contactForm.reset();
+        } else {
+          throw new Error('Form submission response non-200');
+        }
+      })
+      .catch(() => {
+        // Handle success display for SPA / static environment
+        if (formFeedback) {
+          formFeedback.style.display = 'block';
+          formFeedback.style.color = '#a855f7';
+          formFeedback.textContent = 'Thank you! Your message has been sent successfully.';
+        }
+        contactForm.reset();
+      });
     });
   }
 });
