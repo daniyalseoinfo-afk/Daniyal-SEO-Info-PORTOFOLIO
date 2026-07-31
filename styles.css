@@ -1,5 +1,5 @@
 /* 
- * Daniyal - SEO Intern Portfolio Stylesheet
+ * Daniyal - SEO Specialist Portfolio Stylesheet
  * Color Palette: Dark Black & Deep Glowing Purple
  */
 
@@ -835,15 +835,9 @@ section {
 
 /* CONTACT SECTION */
 .contact-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 4rem;
-}
-
-@media (min-width: 900px) {
-  .contact-grid {
-    grid-template-columns: 1.1fr 0.9fr;
-  }
+  display: flex;
+  flex-direction: column;
+  max-width: 780px;
 }
 
 .contact-title {
@@ -858,7 +852,7 @@ section {
   font-size: 1.1rem;
   color: var(--muted-text);
   margin-bottom: 2.5rem;
-  max-width: 520px;
+  max-width: 620px;
 }
 
 .contact-info-list {
@@ -910,52 +904,6 @@ section {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-}
-
-/* Form Styling */
-.contact-form-wrap {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  padding: 2.5rem 2rem;
-  border-radius: 12px;
-  backdrop-filter: blur(12px);
-}
-
-.form-group {
-  margin-bottom: 1.5rem;
-}
-
-.form-label {
-  display: block;
-  font-size: 0.85rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--main-text);
-  margin-bottom: 0.5rem;
-}
-
-.form-input, .form-textarea {
-  width: 100%;
-  background: rgba(5, 5, 7, 0.8);
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
-  padding: 0.9rem 1.1rem;
-  color: var(--main-text);
-  font-family: var(--font-body);
-  font-size: 0.95rem;
-  transition: border-color 0.25s, box-shadow 0.25s;
-}
-
-.form-input:focus, .form-textarea:focus {
-  border-color: var(--bright-glow);
-  box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
-  outline: none;
-}
-
-.form-textarea {
-  resize: vertical;
-  min-height: 120px;
 }
 
 /* FOOTER */

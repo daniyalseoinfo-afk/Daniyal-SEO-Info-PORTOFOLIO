@@ -1,5 +1,5 @@
 /**
- * Daniyal - SEO Intern Portfolio Script
+ * Daniyal - SEO Specialist Portfolio Script
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(animateGlow);
 
     // Hover effect on interactive elements
-    const interactiveEls = document.querySelectorAll('a, button, input, textarea, .skill-tag, .service-card, .project-card');
+    const interactiveEls = document.querySelectorAll('a, button, .skill-tag, .service-card, .project-card');
     interactiveEls.forEach(el => {
       el.addEventListener('mouseenter', () => cursorDot.classList.add('hovered'));
       el.addEventListener('mouseleave', () => cursorDot.classList.remove('hovered'));
@@ -112,62 +112,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const x = dx * speed;
         const y = dy * speed;
         el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
-      });
-    });
-  }
-
-  // 6. Contact Form Submission (Netlify Forms AJAX Handler)
-  const contactForm = document.getElementById('contact-form');
-  const formFeedback = document.getElementById('form-feedback');
-
-  if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      const nameInput = document.getElementById('form-name');
-      const emailInput = document.getElementById('form-email');
-      const detailsInput = document.getElementById('form-details');
-
-      const name = nameInput ? nameInput.value.trim() : '';
-      const email = emailInput ? emailInput.value.trim() : '';
-      const details = detailsInput ? detailsInput.value.trim() : '';
-
-      if (!name || !email || !details) {
-        if (formFeedback) {
-          formFeedback.style.display = 'block';
-          formFeedback.style.color = '#ef4444';
-          formFeedback.textContent = 'Please fill out all required fields.';
-        }
-        return;
-      }
-
-      const formData = new FormData(contactForm);
-
-      fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formData).toString()
-      })
-      .then((response) => {
-        if (response.ok || response.status === 200) {
-          if (formFeedback) {
-            formFeedback.style.display = 'block';
-            formFeedback.style.color = '#a855f7';
-            formFeedback.textContent = 'Thank you! Your message has been sent successfully.';
-          }
-          contactForm.reset();
-        } else {
-          throw new Error('Form submission response non-200');
-        }
-      })
-      .catch(() => {
-        // Handle success display for SPA / static environment
-        if (formFeedback) {
-          formFeedback.style.display = 'block';
-          formFeedback.style.color = '#a855f7';
-          formFeedback.textContent = 'Thank you! Your message has been sent successfully.';
-        }
-        contactForm.reset();
       });
     });
   }
