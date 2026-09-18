@@ -1,1 +1,109 @@
 @import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Manrope", "Plus Jakarta Sans", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  --color-bg-primary: #080A0F;
+  --color-bg-secondary: #0D1017;
+  --color-surface-elevated: #11151E;
+  --color-surface-card: #121722;
+  --color-surface-soft: #161C28;
+
+  --color-border-subtle: rgba(255, 255, 255, 0.08);
+  --color-border-strong: rgba(255, 255, 255, 0.14);
+
+  --color-text-primary: #F7F8FA;
+  --color-text-secondary: #B5BBC7;
+  --color-text-muted: #7D8595;
+
+  --color-lime-accent: #B7FF3C;
+  --color-lime-soft: #A8F536;
+  --color-cyan-accent: #45E6FF;
+  --color-violet-accent: #8B5CFF;
+}
+
+@layer base {
+  * {
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+  
+  html {
+    font-family: var(--font-sans);
+    background-color: #080A0F;
+    color: #F7F8FA;
+    color-scheme: dark;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    letter-spacing: -0.025em;
+  }
+
+  code, pre, .font-mono {
+    font-family: var(--font-mono);
+  }
+}
+
+/* Technical Subtle Grid */
+.bg-tech-grid {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+}
+
+.bg-tech-dots {
+  background-size: 24px 24px;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+}
+
+/* Custom glow utility */
+.lime-glow {
+  box-shadow: 0 0 40px -10px rgba(183, 255, 60, 0.22);
+}
+
+.lime-glow-sm {
+  box-shadow: 0 0 20px -5px rgba(183, 255, 60, 0.28);
+}
+
+.cyan-glow {
+  box-shadow: 0 0 35px -8px rgba(69, 230, 255, 0.22);
+}
+
+/* Marquee continuous animation */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 35s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #080A0F;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #161C28;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #B7FF3C;
+}
