@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { PageRoute, CaseStudy } from '../types';
 import { CASE_STUDIES } from '../data/seoData';
 import { ArrowRight, CheckCircle2, AlertCircle, Cpu, Search, MapPin, Eye, ArrowUpRight } from 'lucide-react';
+import daniyalPortrait from '../assets/images/daniyal-portrait-2026.webp';
 
 export const PortfolioPage: React.FC<{ onRouteChange: (route: PageRoute) => void; onRequestReview: () => void }> = ({
   onRouteChange,
@@ -256,7 +257,7 @@ export const AboutPage: React.FC<{ onRouteChange: (route: PageRoute) => void; on
             <div className="lg:col-span-5 flex justify-center">
               <div className="w-full max-w-sm rounded-3xl overflow-hidden border border-white/14 shadow-2xl bg-[#11151E]">
                 <img
-                  src="/src/assets/images/daniyal_portrait_1787128804384.jpg"
+                  src={daniyalPortrait}
                   alt="Daniyal, Junior SEO Executive in Karachi"
                   className="w-full h-auto object-cover grayscale contrast-105 hover:grayscale-0 transition-all duration-500"
                   referrerPolicy="no-referrer"

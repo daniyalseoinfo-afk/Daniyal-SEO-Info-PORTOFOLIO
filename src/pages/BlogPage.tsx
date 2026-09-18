@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { PageRoute, BlogPost } from '../types';
 import { BLOG_POSTS } from '../data/seoData';
 import { ArrowLeft, Clock, Calendar, Tag, User, ArrowRight, BookOpen, Share2 } from 'lucide-react';
+import { submitPortfolioForm } from '../lib/formSubmit';
 
 export const BlogPage: React.FC<{ onRouteChange: (route: PageRoute) => void; onRequestReview: () => void }> = ({
   onRouteChange,
@@ -202,10 +203,33 @@ export const ContactPage: React.FC<{ onRouteChange: (route: PageRoute) => void; 
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsSubmitting(true);
+    setSubmitError('');
+
+    try {
+      await submitPortfolioForm('New SEO Project Inquiry', {
+        form_name: 'SEO Project Inquiry',
+        name: formData.name,
+        email: formData.email,
+        website: formData.website,
+        business_type: formData.businessType,
+        target_market: formData.targetMarket,
+        target_keywords: formData.targetKeywords || 'Not provided',
+        budget: formData.budget,
+        primary_challenge: formData.challenge || 'Not provided',
+        message: formData.message
+      });
+      setSubmitted(true);
+    } catch {
+      setSubmitError('Message send nahi hua. Dobara try karein ya direct email use karein.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -267,7 +291,7 @@ export const ContactPage: React.FC<{ onRouteChange: (route: PageRoute) => void; 
                     <div>
                       <label className="block text-xs font-mono text-[#B5BBC7] mb-1">Your Full Name *</label>
                       <input
-                        type="text"
+                        type="url"
                         required
                         placeholder="e.g. Daniyal Khan"
                         value={formData.name}
@@ -345,6 +369,7 @@ export const ContactPage: React.FC<{ onRouteChange: (route: PageRoute) => void; 
                     <label className="block text-xs font-mono text-[#B5BBC7] mb-1">What is your biggest search challenge right now?</label>
                     <textarea
                       rows={4}
+                      required
                       placeholder="Share details regarding your current traffic, indexation issues, or ranking drop..."
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
@@ -354,10 +379,20 @@ export const ContactPage: React.FC<{ onRouteChange: (route: PageRoute) => void; 
 
                   <button
                     type="submit"
-                    className="w-full py-4 rounded-xl bg-[#B7FF3C] text-[#080A0F] font-bold text-sm sm:text-base hover:bg-[#A8F536] transition-all shadow-[0_0_25px_-5px_rgba(183,255,60,0.4)]"
+                    disabled={isSubmitting}
+                    className="w-full py-4 rounded-xl bg-[#B7FF3C] text-[#080A0F] font-bold text-sm sm:text-base hover:bg-[#A8F536] transition-all shadow-[0_0_25px_-5px_rgba(183,255,60,0.4)] disabled:cursor-not-allowed disabled:opacity-60"
                   >
-                    Send SEO Inquiry to Daniyal
+                    {isSubmitting ? 'Sending SEO Inquiry...' : 'Send SEO Inquiry to Daniyal'}
                   </button>
+
+                  {submitError && (
+                    <div role="alert" className="rounded-xl border border-red-400/30 bg-red-400/10 p-3 text-center text-xs text-red-200">
+                      {submitError}{' '}
+                      <a href="mailto:daniyalseoinfo@gmail.com" className="font-bold underline underline-offset-2">
+                        Email Daniyal
+                      </a>
+                    </div>
+                  )}
                 </form>
               )}
             </div>

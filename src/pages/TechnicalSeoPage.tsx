@@ -1,6 +1,8 @@
 import React from 'react';
 import { PageRoute } from '../types';
 import { Cpu, Terminal, CheckCircle2, ArrowRight, Server, ShieldCheck, Layers, FileCode } from 'lucide-react';
+import technicalCrawlImage from '../assets/images/technical-crawl-indexation.webp';
+import keywordArchitectureImage from '../assets/images/keyword-clustering-on-page.webp';
 
 interface TechnicalSeoPageProps {
   onRouteChange: (route: PageRoute) => void;
@@ -17,37 +19,52 @@ export const TechnicalSeoPage: React.FC<TechnicalSeoPageProps> = ({
       {/* Hero */}
       <section className="py-16 sm:py-24 bg-[#080A0F] border-b border-white/8 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl space-y-6">
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#11151E] border border-white/10 text-xs font-mono text-[#B7FF3C]">
-              <Cpu className="w-3.5 h-3.5" />
-              <span>TECHNICAL SEO / KARACHI</span>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+            <div className="lg:col-span-7 space-y-6">
+              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#11151E] border border-white/10 text-xs font-mono text-[#B7FF3C]">
+                <Cpu className="w-3.5 h-3.5" />
+                <span>TECHNICAL SEO / KARACHI</span>
+              </div>
+
+              <h1 className="text-4xl sm:text-6xl font-extrabold text-[#F7F8FA] tracking-tight font-display leading-[1.1]">
+                Technical SEO Services in{' '}
+                <span className="text-[#B7FF3C]">Karachi</span>
+              </h1>
+
+              <p className="text-lg sm:text-xl text-[#B5BBC7] leading-relaxed">
+                Find and fix crawling, indexing, architecture, and rendering problems that restrict organic search discovery.
+              </p>
+
+              <div className="flex flex-wrap gap-2 pt-2 text-xs font-mono text-[#7D8595]">
+                {['200 OK', 'INDEXED', 'CANONICAL', 'XML SITEMAP', 'LCP', 'INP', 'CLS', 'SCHEMA JSON-LD'].map((tag) => (
+                  <span key={tag} className="px-2.5 py-1 rounded bg-[#11151E] border border-white/8 text-[#45E6FF]">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              <div className="pt-4 flex gap-4">
+                <button
+                  onClick={() => onRequestReview()}
+                  className="px-6 py-3.5 rounded-xl bg-[#B7FF3C] text-[#080A0F] font-bold text-sm hover:bg-[#A8F536] transition-all shadow-[0_0_25px_-5px_rgba(183,255,60,0.4)] flex items-center space-x-2"
+                >
+                  <span>Request Technical SEO Audit</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
             </div>
 
-            <h1 className="text-4xl sm:text-6xl font-extrabold text-[#F7F8FA] tracking-tight font-display leading-[1.1]">
-              Technical SEO Services in{' '}
-              <span className="text-[#B7FF3C]">Karachi</span>
-            </h1>
-
-            <p className="text-lg sm:text-xl text-[#B5BBC7] leading-relaxed">
-              Find and fix crawling, indexing, architecture, and rendering problems that restrict organic search discovery.
-            </p>
-
-            <div className="flex flex-wrap gap-2 pt-2 text-xs font-mono text-[#7D8595]">
-              {['200 OK', 'INDEXED', 'CANONICAL', 'XML SITEMAP', 'LCP', 'INP', 'CLS', 'SCHEMA JSON-LD'].map((tag) => (
-                <span key={tag} className="px-2.5 py-1 rounded bg-[#11151E] border border-white/8 text-[#45E6FF]">
-                  {tag}
-                </span>
-              ))}
-            </div>
-
-            <div className="pt-4 flex gap-4">
-              <button
-                onClick={() => onRequestReview()}
-                className="px-6 py-3.5 rounded-xl bg-[#B7FF3C] text-[#080A0F] font-bold text-sm hover:bg-[#A8F536] transition-all shadow-[0_0_25px_-5px_rgba(183,255,60,0.4)] flex items-center space-x-2"
-              >
-                <span>Request Technical SEO Audit</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
+            <div className="lg:col-span-5">
+              <div className="relative overflow-hidden rounded-3xl border border-white/12 bg-[#11151E] shadow-[0_24px_70px_rgba(0,0,0,0.55)] aspect-[4/5]">
+                <img
+                  src={technicalCrawlImage}
+                  alt="Daniyal reviewing technical crawl and indexation data in Karachi"
+                  className="h-full w-full object-cover"
+                  loading="eager"
+                  fetchPriority="high"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#080A0F]/45 via-transparent to-transparent pointer-events-none" />
+              </div>
             </div>
           </div>
         </div>
@@ -122,35 +139,50 @@ export const OnPageSeoPage: React.FC<{ onRouteChange: (route: PageRoute) => void
     <div className="pt-28 pb-20">
       <section className="py-16 sm:py-24 bg-[#080A0F] border-b border-white/8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl space-y-6">
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#11151E] border border-white/10 text-xs font-mono text-[#45E6FF]">
-              <span>ON-PAGE SEO / KARACHI</span>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+            <div className="lg:col-span-6 space-y-6">
+              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#11151E] border border-white/10 text-xs font-mono text-[#45E6FF]">
+                <span>ON-PAGE SEO / KARACHI</span>
+              </div>
+
+              <h1 className="text-4xl sm:text-6xl font-extrabold text-[#F7F8FA] tracking-tight font-display leading-[1.1]">
+                On-Page SEO Services in{' '}
+                <span className="text-[#45E6FF]">Karachi</span>
+              </h1>
+
+              <p className="text-lg sm:text-xl text-[#B5BBC7] leading-relaxed">
+                Improve page targeting, content hierarchy, and relevance around real search intent.
+              </p>
+
+              <div className="flex flex-wrap gap-2 pt-2 text-xs font-mono text-[#7D8595]">
+                {['TITLE TAG', 'H1 HIERARCHY', 'SEARCH INTENT', 'INTERNAL LINKS', 'CONTENT DEPTH', 'IMAGE ALT'].map((tag) => (
+                  <span key={tag} className="px-2.5 py-1 rounded bg-[#11151E] border border-white/8 text-[#B7FF3C]">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              <div className="pt-4">
+                <button
+                  onClick={onRequestReview}
+                  className="px-6 py-3.5 rounded-xl bg-[#B7FF3C] text-[#080A0F] font-bold text-sm hover:bg-[#A8F536] transition-all"
+                >
+                  Request On-Page Review
+                </button>
+              </div>
             </div>
 
-            <h1 className="text-4xl sm:text-6xl font-extrabold text-[#F7F8FA] tracking-tight font-display leading-[1.1]">
-              On-Page SEO Services in{' '}
-              <span className="text-[#45E6FF]">Karachi</span>
-            </h1>
-
-            <p className="text-lg sm:text-xl text-[#B5BBC7] leading-relaxed">
-              Improve page targeting, content hierarchy, and relevance around real search intent.
-            </p>
-
-            <div className="flex flex-wrap gap-2 pt-2 text-xs font-mono text-[#7D8595]">
-              {['TITLE TAG', 'H1 HIERARCHY', 'SEARCH INTENT', 'INTERNAL LINKS', 'CONTENT DEPTH', 'IMAGE ALT'].map((tag) => (
-                <span key={tag} className="px-2.5 py-1 rounded bg-[#11151E] border border-white/8 text-[#B7FF3C]">
-                  {tag}
-                </span>
-              ))}
-            </div>
-
-            <div className="pt-4">
-              <button
-                onClick={onRequestReview}
-                className="px-6 py-3.5 rounded-xl bg-[#B7FF3C] text-[#080A0F] font-bold text-sm hover:bg-[#A8F536] transition-all"
-              >
-                Request On-Page Review
-              </button>
+            <div className="lg:col-span-6">
+              <div className="relative overflow-hidden rounded-3xl border border-white/12 bg-[#11151E] shadow-[0_24px_70px_rgba(0,0,0,0.55)] aspect-video">
+                <img
+                  src={keywordArchitectureImage}
+                  alt="Commercial keyword clustering and on-page content architecture planning"
+                  className="h-full w-full object-cover"
+                  loading="eager"
+                  fetchPriority="high"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#080A0F]/35 via-transparent to-transparent pointer-events-none" />
+              </div>
             </div>
           </div>
         </div>

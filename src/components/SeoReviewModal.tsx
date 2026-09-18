@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { X, CheckCircle2, Terminal, ArrowRight, ShieldCheck, Sparkles, Send } from 'lucide-react';
 import { ReviewRequestFormData } from '../types';
+import { submitPortfolioForm } from '../lib/formSubmit';
 
 interface SeoReviewModalProps {
   isOpen: boolean;
@@ -27,17 +28,40 @@ export const SeoReviewModal: React.FC<SeoReviewModalProps> = ({
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+
+  useEffect(() => {
+    if (initialUrl) {
+      setFormData((current) => ({ ...current, websiteUrl: initialUrl }));
+    }
+  }, [initialUrl]);
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitError('');
 
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      await submitPortfolioForm('New Free SEO Review Request', {
+        form_name: 'Free SEO Review Request',
+        name: formData.fullName,
+        email: formData.email,
+        website: formData.websiteUrl,
+        business_type: formData.businessType,
+        target_market: formData.targetMarket,
+        target_keywords: formData.targetKeywords || 'Not provided',
+        primary_challenge: formData.primaryChallenge,
+        budget_range: formData.budgetRange,
+        message: formData.message || 'No additional message'
+      });
       setIsSubmitted(true);
-    }, 1000);
+    } catch {
+      setSubmitError('Request send nahi hui. Dobara try karein ya direct email use karein.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleReset = () => {
@@ -102,7 +126,7 @@ export const SeoReviewModal: React.FC<SeoReviewModalProps> = ({
                     Your Name *
                   </label>
                   <input
-                    type="text"
+                    type="url"
                     required
                     placeholder="e.g. Daniyal Khan"
                     value={formData.fullName}
@@ -216,6 +240,15 @@ export const SeoReviewModal: React.FC<SeoReviewModalProps> = ({
                   )}
                 </button>
               </div>
+
+              {submitError && (
+                <div role="alert" className="rounded-xl border border-red-400/30 bg-red-400/10 p-3 text-center text-xs text-red-200">
+                  {submitError}{' '}
+                  <a href="mailto:daniyalseoinfo@gmail.com" className="font-bold underline underline-offset-2">
+                    Email Daniyal
+                  </a>
+                </div>
+              )}
 
               <div className="pt-2 text-center text-[11px] font-mono text-[#7D8595]">
                 <span>No ranking guarantees • 100% Confidential • Direct reply from Daniyal</span>

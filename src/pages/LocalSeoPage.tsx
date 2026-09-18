@@ -1,6 +1,8 @@
 import React from 'react';
 import { PageRoute } from '../types';
 import { MapPin, SearchCode, CheckCircle2, ArrowRight, Compass, Layers } from 'lucide-react';
+import localSeoImage from '../assets/images/local-seo-strategy.webp';
+import keywordArchitectureImage from '../assets/images/keyword-clustering-on-page.webp';
 
 export const LocalSeoPage: React.FC<{ onRouteChange: (route: PageRoute) => void; onRequestReview: () => void }> = ({
   onRouteChange,
@@ -10,28 +12,43 @@ export const LocalSeoPage: React.FC<{ onRouteChange: (route: PageRoute) => void;
     <div className="pt-28 pb-20">
       <section className="py-16 sm:py-24 bg-[#080A0F] border-b border-white/8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl space-y-6">
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#11151E] border border-white/10 text-xs font-mono text-[#B7FF3C]">
-              <MapPin className="w-3.5 h-3.5" />
-              <span>LOCAL SEO / KARACHI, PAKISTAN</span>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+            <div className="lg:col-span-7 space-y-6">
+              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#11151E] border border-white/10 text-xs font-mono text-[#B7FF3C]">
+                <MapPin className="w-3.5 h-3.5" />
+                <span>LOCAL SEO / KARACHI, PAKISTAN</span>
+              </div>
+
+              <h1 className="text-4xl sm:text-6xl font-extrabold text-[#F7F8FA] tracking-tight font-display leading-[1.1]">
+                Local SEO Services in{' '}
+                <span className="text-[#B7FF3C]">Karachi</span>
+              </h1>
+
+              <p className="text-lg sm:text-xl text-[#B5BBC7] leading-relaxed">
+                Strengthen location relevance and capture local customer queries across DHA, Clifton, Gulshan-e-Iqbal, PECHS, and Korangi on Google Maps and Local 3-Pack.
+              </p>
+
+              <div className="pt-4">
+                <button
+                  onClick={onRequestReview}
+                  className="px-6 py-3.5 rounded-xl bg-[#B7FF3C] text-[#080A0F] font-bold text-sm hover:bg-[#A8F536] transition-all"
+                >
+                  Request Karachi Local SEO Audit
+                </button>
+              </div>
             </div>
 
-            <h1 className="text-4xl sm:text-6xl font-extrabold text-[#F7F8FA] tracking-tight font-display leading-[1.1]">
-              Local SEO Services in{' '}
-              <span className="text-[#B7FF3C]">Karachi</span>
-            </h1>
-
-            <p className="text-lg sm:text-xl text-[#B5BBC7] leading-relaxed">
-              Strengthen location relevance and capture local customer queries across DHA, Clifton, Gulshan-e-Iqbal, PECHS, and Korangi on Google Maps and Local 3-Pack.
-            </p>
-
-            <div className="pt-4">
-              <button
-                onClick={onRequestReview}
-                className="px-6 py-3.5 rounded-xl bg-[#B7FF3C] text-[#080A0F] font-bold text-sm hover:bg-[#A8F536] transition-all"
-              >
-                Request Karachi Local SEO Audit
-              </button>
+            <div className="lg:col-span-5">
+              <div className="relative overflow-hidden rounded-3xl border border-white/12 bg-[#11151E] shadow-[0_24px_70px_rgba(0,0,0,0.55)] aspect-[4/5]">
+                <img
+                  src={localSeoImage}
+                  alt="Daniyal planning local SEO and Google Business Profile optimization in Karachi"
+                  className="h-full w-full object-cover"
+                  loading="eager"
+                  fetchPriority="high"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#080A0F]/45 via-transparent to-transparent pointer-events-none" />
+              </div>
             </div>
           </div>
         </div>
@@ -73,28 +90,43 @@ export const KeywordResearchPage: React.FC<{ onRouteChange: (route: PageRoute) =
     <div className="pt-28 pb-20">
       <section className="py-16 sm:py-24 bg-[#080A0F] border-b border-white/8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl space-y-6">
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#11151E] border border-white/10 text-xs font-mono text-[#B7FF3C]">
-              <SearchCode className="w-3.5 h-3.5" />
-              <span>KEYWORD STRATEGY & CLUSTERING</span>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+            <div className="lg:col-span-6 space-y-6">
+              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#11151E] border border-white/10 text-xs font-mono text-[#B7FF3C]">
+                <SearchCode className="w-3.5 h-3.5" />
+                <span>KEYWORD STRATEGY & CLUSTERING</span>
+              </div>
+
+              <h1 className="text-4xl sm:text-6xl font-extrabold text-[#F7F8FA] tracking-tight font-display leading-[1.1]">
+                Keyword Research Services in{' '}
+                <span className="text-[#B7FF3C]">Karachi</span>
+              </h1>
+
+              <p className="text-lg sm:text-xl text-[#B5BBC7] leading-relaxed">
+                Turn raw search volume numbers into clear topic clusters and pages instead of an unorganized spreadsheet.
+              </p>
+
+              <div className="pt-4">
+                <button
+                  onClick={onRequestReview}
+                  className="px-6 py-3.5 rounded-xl bg-[#B7FF3C] text-[#080A0F] font-bold text-sm hover:bg-[#A8F536] transition-all"
+                >
+                  Request Keyword Opportunity Matrix
+                </button>
+              </div>
             </div>
 
-            <h1 className="text-4xl sm:text-6xl font-extrabold text-[#F7F8FA] tracking-tight font-display leading-[1.1]">
-              Keyword Research Services in{' '}
-              <span className="text-[#B7FF3C]">Karachi</span>
-            </h1>
-
-            <p className="text-lg sm:text-xl text-[#B5BBC7] leading-relaxed">
-              Turn raw search volume numbers into clear topic clusters and pages instead of an unorganized spreadsheet.
-            </p>
-
-            <div className="pt-4">
-              <button
-                onClick={onRequestReview}
-                className="px-6 py-3.5 rounded-xl bg-[#B7FF3C] text-[#080A0F] font-bold text-sm hover:bg-[#A8F536] transition-all"
-              >
-                Request Keyword Opportunity Matrix
-              </button>
+            <div className="lg:col-span-6">
+              <div className="relative overflow-hidden rounded-3xl border border-white/12 bg-[#11151E] shadow-[0_24px_70px_rgba(0,0,0,0.55)] aspect-video">
+                <img
+                  src={keywordArchitectureImage}
+                  alt="Commercial keyword clustering and on-page content architecture planning"
+                  className="h-full w-full object-cover"
+                  loading="eager"
+                  fetchPriority="high"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#080A0F]/35 via-transparent to-transparent pointer-events-none" />
+              </div>
             </div>
           </div>
         </div>

@@ -3,7 +3,7 @@ import { PageRoute } from '../types';
 // Central place for per-page SEO metadata. Update SITE_URL once you have a
 // final custom domain — everything else (canonical links, OG tags, sitemap
 // references) reads from this single constant.
-export const SITE_URL = 'https://daniyalseoportfolio.netlify.app';
+export const SITE_URL = import.meta.env.VITE_SITE_URL || 'https://daniyalseoportfolio.netlify.app';
 
 interface PageSeoEntry {
   path: string; // real URL path (no hash)

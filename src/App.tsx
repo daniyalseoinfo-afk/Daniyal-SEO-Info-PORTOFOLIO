@@ -15,8 +15,19 @@ import { LocalSeoPage, KeywordResearchPage } from './pages/LocalSeoPage';
 import { PortfolioPage, AboutPage } from './pages/PortfolioPage';
 import { BlogPage, ContactPage } from './pages/BlogPage';
 
+const BASE_PATH = import.meta.env.BASE_URL.replace(/\/$/, '');
+
 function routeFromPathname(pathname: string): PageRoute {
-  return ROUTE_BY_PATH[pathname] || 'home';
+  const appPath = BASE_PATH && pathname.startsWith(BASE_PATH)
+    ? pathname.slice(BASE_PATH.length) || '/'
+    : pathname;
+
+  return ROUTE_BY_PATH[appPath] || 'home';
+}
+
+function pathForRoute(route: PageRoute): string {
+  const appPath = PAGE_SEO[route]?.path || '/';
+  return `${BASE_PATH}${appPath}` || '/';
 }
 
 export default function App() {
@@ -39,7 +50,7 @@ export default function App() {
   usePageSEO(currentRoute);
 
   const handleNavigate = (route: PageRoute) => {
-    const path = PAGE_SEO[route]?.path || '/';
+    const path = pathForRoute(route);
     if (window.location.pathname !== path) {
       window.history.pushState({}, '', path);
     }

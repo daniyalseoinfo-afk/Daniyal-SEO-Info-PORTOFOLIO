@@ -5,6 +5,11 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
+    // GitHub project pages are served from /Daniyal-SEO-Info-PORTOFOLIO/.
+    // Keep the root base for local development and the existing Netlify site.
+    base: process.env.GITHUB_ACTIONS
+      ? '/Daniyal-SEO-Info-PORTOFOLIO/'
+      : '/',
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {

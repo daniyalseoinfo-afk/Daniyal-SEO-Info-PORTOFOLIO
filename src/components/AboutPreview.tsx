@@ -1,6 +1,7 @@
 import React from 'react';
 import { PageRoute } from '../types';
 import { ArrowRight, Terminal, CheckCircle, Award, Compass, Cpu, Search } from 'lucide-react';
+import daniyalPortrait from '../assets/images/daniyal-portrait-2026.webp';
 
 interface AboutPreviewProps {
   onRouteChange: (route: PageRoute) => void;
@@ -22,7 +23,7 @@ export const AboutPreview: React.FC<AboutPreviewProps> = ({ onRouteChange }) => 
               {/* Image Frame */}
               <div className="relative rounded-3xl overflow-hidden border border-white/14 shadow-[0_20px_50px_rgba(0,0,0,0.8)] bg-[#11151E]">
                 <img
-                  src="/src/assets/images/daniyal_portrait_1787128804384.jpg"
+                  src={daniyalPortrait}
                   alt="Daniyal, Junior SEO Executive in Karachi"
                   className="w-full h-auto object-cover grayscale contrast-105 hover:grayscale-0 transition-all duration-500"
                   referrerPolicy="no-referrer"
