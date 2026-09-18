@@ -3,6 +3,15 @@ import { PageRoute, CaseStudy } from '../types';
 import { CASE_STUDIES } from '../data/seoData';
 import { ArrowRight, CheckCircle2, AlertCircle, Cpu, Search, MapPin, Eye, ArrowUpRight } from 'lucide-react';
 import daniyalPortrait from '../assets/images/daniyal-portrait-2026.webp';
+import technicalCrawlImage from '../assets/images/technical-crawl-indexation.webp';
+import localSeoImage from '../assets/images/local-seo-strategy.webp';
+import keywordClusteringImage from '../assets/images/keyword-clustering-on-page.webp';
+
+const CASE_STUDY_IMAGES: Record<string, string> = {
+  'karachi-ecommerce-tech-audit': technicalCrawlImage,
+  'local-dental-clinic-karachi': localSeoImage,
+  'b2b-logistics-keyword-cluster': keywordClusteringImage
+};
 
 export const PortfolioPage: React.FC<{ onRouteChange: (route: PageRoute) => void; onRequestReview: () => void }> = ({
   onRouteChange,
@@ -63,9 +72,21 @@ export const PortfolioPage: React.FC<{ onRouteChange: (route: PageRoute) => void
             {filteredStudies.map((study) => (
               <div
                 key={study.id}
-                className="p-6 sm:p-8 rounded-3xl bg-[#11151E] border border-white/10 hover:border-[#B7FF3C]/40 transition-all flex flex-col justify-between group"
+                className="overflow-hidden rounded-3xl bg-[#11151E] border border-white/10 hover:border-[#B7FF3C]/40 transition-all flex flex-col justify-between group"
               >
-                <div className="space-y-4">
+                {CASE_STUDY_IMAGES[study.id] && (
+                  <div className="relative aspect-video overflow-hidden border-b border-white/10 bg-[#080A0F]">
+                    <img
+                      src={CASE_STUDY_IMAGES[study.id]}
+                      alt={`${study.title} case study visual`}
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#11151E]/55 via-transparent to-transparent pointer-events-none" />
+                  </div>
+                )}
+
+                <div className="p-6 sm:p-8 space-y-4">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-mono px-2.5 py-1 rounded bg-[#080A0F] text-[#B7FF3C] border border-white/10">
                       {study.status}
@@ -109,7 +130,7 @@ export const PortfolioPage: React.FC<{ onRouteChange: (route: PageRoute) => void
                   </div>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-white/5 flex items-center justify-between">
+                <div className="mx-6 sm:mx-8 mb-6 sm:mb-8 pt-4 border-t border-white/5 flex items-center justify-between">
                   <div className="text-xs font-mono text-[#B7FF3C]">
                     {study.resultSummary}
                   </div>
@@ -149,6 +170,17 @@ export const PortfolioPage: React.FC<{ onRouteChange: (route: PageRoute) => void
                 {activeStudyModal.clientType} — {activeStudyModal.location}
               </p>
             </div>
+
+            {CASE_STUDY_IMAGES[activeStudyModal.id] && (
+              <div className="relative aspect-video overflow-hidden rounded-2xl border border-white/10 bg-[#080A0F]">
+                <img
+                  src={CASE_STUDY_IMAGES[activeStudyModal.id]}
+                  alt={`${activeStudyModal.title} case study visual`}
+                  className="h-full w-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#080A0F]/35 via-transparent to-transparent pointer-events-none" />
+              </div>
+            )}
 
             <div className="space-y-3">
               <h4 className="text-sm font-bold text-white uppercase font-mono">1. The Search Bottleneck</h4>
