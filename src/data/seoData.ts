@@ -1,4 +1,7 @@
 import { ServiceItem, CaseStudy, BlogPost, ProcessStep, ToolItem, FaqItem } from '../types';
+import technicalCrawlImage from '../assets/images/technical-crawl-indexation.webp';
+import localSeoImage from '../assets/images/local-seo-strategy.webp';
+import keywordClusteringImage from '../assets/images/keyword-clustering-on-page.webp';
 
 export const PERSONAL_INFO = {
   name: 'Daniyal',
@@ -155,7 +158,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       { label: 'Crawl Efficiency', value: '3.2x', detail: 'More frequent bot visits on core revenue pages' },
       { label: 'Status Code Health', value: '99.4%', detail: 'Zero 404 navigation errors remaining' }
     ],
-    imageSrc: '/src/assets/images/seo_audit_case_1787128852303.jpg',
+    imageSrc: technicalCrawlImage,
     keyLearning: 'Faceted navigation on e-commerce sites can silently destroy search visibility if search crawlers get trapped in infinite parameter permutations.'
   },
   {
@@ -193,7 +196,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       { label: 'NAP Consistency', value: '100%', detail: 'Synchronized across all Pakistani directories' },
       { label: 'Schema Coverage', value: 'Complete', detail: 'LocalBusiness & Dentist JSON-LD deployed' }
     ],
-    imageSrc: '/src/assets/images/local_seo_case_1787128891837.jpg',
+    imageSrc: localSeoImage,
     keyLearning: 'For local businesses in Karachi, pinpoint category selection in GBP and geo-specific on-page signals determine 80% of local pack ranking potential.'
   },
   {
@@ -229,7 +232,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       { label: 'Cluster Pillars', value: '4 Pillars', detail: 'Customs, Ocean, Air & Karachi Warehousing' },
       { label: 'Cannibalization', value: 'Resolved', detail: 'Dedicated 1-to-1 URL-to-keyword mapping' }
     ],
-    imageSrc: '/src/assets/images/daniyal_portrait_1787128804384.jpg',
+    imageSrc: keywordClusteringImage,
     keyLearning: 'In B2B industrial markets like Karachi, specific commercial keywords outperform generic high-volume terms by 10x in conversion rate.'
   }
 ];
