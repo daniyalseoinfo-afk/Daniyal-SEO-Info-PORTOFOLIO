@@ -8,7 +8,9 @@ export type PageRoute =
   | 'portfolio'
   | 'about'
   | 'blog'
-  | 'contact';
+  | 'free-seo-tools'
+  | 'contact'
+  | 'not-found';
 
 export interface ServiceItem {
   id: string;
@@ -30,7 +32,7 @@ export interface CaseStudy {
   clientType: string;
   location: string;
   category: 'Technical' | 'On-Page' | 'Keyword Research' | 'Local SEO' | 'Comprehensive';
-  status: 'VERIFIED CASE' | 'AUDIT PROJECT' | 'KEYWORD RESEARCH' | 'ON-PAGE OPTIMIZATION' | 'DEMO / CONCEPTUAL';
+  status: 'SEO Audit Exercise' | 'SEO Strategy Exercise' | 'Demonstration Project' | 'Verified Client Case';
   challenge: string;
   myRole: string;
   servicesPerformed: string[];

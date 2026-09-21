@@ -1,6 +1,10 @@
 import { useEffect } from 'react';
 import { PageRoute } from '../types';
-import { PAGE_SEO, SITE_URL } from '../data/pageSeo';
+import { PAGE_SEO } from '../data/pageSeo';
+import { getCanonicalUrl, SITE_URL } from '../lib/siteConfig';
+import { buildPageSchema } from '../lib/schemaGenerator';
+import { trackPageView } from '../lib/analytics';
+import { FAQ_LIST } from '../data/seoData';
 
 function setMetaByName(name: string, content: string) {
   let el = document.querySelector(`meta[name="${name}"]`);
@@ -32,29 +36,60 @@ function setCanonical(href: string) {
   el.setAttribute('href', href);
 }
 
+function setJsonLdSchema(schemaObj: any) {
+  let scriptEl = document.getElementById('route-jsonld-schema') as HTMLScriptElement | null;
+  if (!scriptEl) {
+    scriptEl = document.createElement('script');
+    scriptEl.id = 'route-jsonld-schema';
+    scriptEl.type = 'application/ld+json';
+    document.head.appendChild(scriptEl);
+  }
+  scriptEl.textContent = JSON.stringify(schemaObj, null, 2);
+}
+
 /**
- * Updates document title, meta description, canonical URL, and Open Graph /
- * Twitter tags whenever the current route changes. This is what makes each
- * "page" of the SPA actually distinct to Google, instead of every route
- * sharing the same title/description from index.html.
+ * Updates document title, meta description, canonical URL, Open Graph /
+ * Twitter tags, and Schema.org JSON-LD whenever the current route changes.
+ * Also logs page view event to GA4.
  */
 export function usePageSEO(route: PageRoute) {
   useEffect(() => {
-    const entry = PAGE_SEO[route];
-    if (!entry) return;
-
-    const fullUrl = `${SITE_URL}${entry.path}`;
+    const entry = PAGE_SEO[route] || PAGE_SEO['home'];
+    const canonicalUrl = getCanonicalUrl(entry.path);
 
     document.title = entry.title;
     setMetaByName('description', entry.description);
-    setCanonical(fullUrl);
+    setMetaByName('robots', route === 'not-found' ? 'noindex, nofollow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
+    setCanonical(canonicalUrl);
 
     setMetaByProperty('og:title', entry.title);
     setMetaByProperty('og:description', entry.description);
-    setMetaByProperty('og:url', fullUrl);
-    setMetaByProperty('og:type', route === 'home' ? 'website' : 'article');
+    setMetaByProperty('og:url', canonicalUrl);
+    setMetaByProperty('og:image', `${SITE_URL}/og-image.jpg`);
+    setMetaByProperty('og:type', 'website');
 
     setMetaByName('twitter:title', entry.title);
     setMetaByName('twitter:description', entry.description);
+    setMetaByName('twitter:image', `${SITE_URL}/og-image.jpg`);
+
+    // Relevant FAQs for schema
+    const relevantFaqs = (route === 'seo-services-in-karachi' || route === 'technical-seo-services-karachi' || route === 'home')
+      ? FAQ_LIST.slice(0, 4)
+      : undefined;
+
+    // Generate dynamic JSON-LD
+    const schema = buildPageSchema({
+      route,
+      path: entry.path,
+      title: entry.title,
+      description: entry.description,
+      breadcrumbs: entry.breadcrumbs,
+      faqs: relevantFaqs
+    });
+
+    setJsonLdSchema(schema);
+
+    // Track in GA4
+    trackPageView(entry.path, entry.title);
   }, [route]);
 }

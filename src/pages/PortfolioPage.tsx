@@ -1,334 +1,161 @@
 import React, { useState } from 'react';
 import { PageRoute, CaseStudy } from '../types';
 import { CASE_STUDIES } from '../data/seoData';
-import { ArrowRight, CheckCircle2, AlertCircle, Cpu, Search, MapPin, Eye, ArrowUpRight } from 'lucide-react';
-import daniyalPortrait from '../assets/images/daniyal-portrait-2026.webp';
-import technicalCrawlImage from '../assets/images/technical-crawl-indexation.webp';
-import localSeoImage from '../assets/images/local-seo-strategy.webp';
-import keywordClusteringImage from '../assets/images/keyword-clustering-on-page.webp';
 
-const CASE_STUDY_IMAGES: Record<string, string> = {
-  'karachi-ecommerce-tech-audit': technicalCrawlImage,
-  'local-dental-clinic-karachi': localSeoImage,
-  'b2b-logistics-keyword-cluster': keywordClusteringImage
-};
+// Case Studies Page Components
+import { CaseStudiesHero } from '../components/portfolio/CaseStudiesHero';
+import { TechnicalCrawlCaseStudy } from '../components/portfolio/TechnicalCrawlCaseStudy';
+import { LocalSeoCaseStudy } from '../components/portfolio/LocalSeoCaseStudy';
+import { KeywordClusterCaseStudy } from '../components/portfolio/KeywordClusterCaseStudy';
+import { CaseStudyModal } from '../components/portfolio/CaseStudyModal';
 
-export const PortfolioPage: React.FC<{ onRouteChange: (route: PageRoute) => void; onRequestReview: () => void }> = ({
-  onRouteChange,
-  onRequestReview
-}) => {
+// About Page Components
+import { AboutHero } from '../components/about/AboutHero';
+import { SearchFlowStory } from '../components/about/SearchFlowStory';
+import { EngineeringPrinciplesBento } from '../components/about/EngineeringPrinciplesBento';
+import { CapabilityMatrix } from '../components/about/CapabilityMatrix';
+import { WorkflowTimeline } from '../components/about/WorkflowTimeline';
+import { ToolboxMiniBento } from '../components/about/ToolboxMiniBento';
+import { AboutPositioningCta } from '../components/about/AboutPositioningCta';
+
+interface PageProps {
+  onRouteChange: (route: PageRoute) => void;
+  onRequestReview: () => void;
+}
+
+// ==========================================
+// PAGE 1 — CASE STUDIES (PORTFOLIO PAGE)
+// ==========================================
+export const PortfolioPage: React.FC<PageProps> = ({ onRouteChange, onRequestReview }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
-  const [activeStudyModal, setActiveStudyModal] = useState<CaseStudy | null>(null);
+  const [inspectedStudy, setInspectedStudy] = useState<CaseStudy | null>(null);
 
   const categories = ['All', 'Technical', 'On-Page', 'Keyword Research', 'Local SEO'];
 
-  const filteredStudies = selectedCategory === 'All'
-    ? CASE_STUDIES
-    : CASE_STUDIES.filter((s) => s.category === selectedCategory);
+  // Study lookup map
+  const studyMap = {
+    technical: CASE_STUDIES.find((s) => s.id === 'karachi-ecommerce-tech-audit') || CASE_STUDIES[0],
+    local: CASE_STUDIES.find((s) => s.id === 'local-dental-clinic-karachi') || CASE_STUDIES[1],
+    keyword: CASE_STUDIES.find((s) => s.id === 'b2b-logistics-keyword-cluster') || CASE_STUDIES[2]
+  };
+
+  const showTechnical = selectedCategory === 'All' || selectedCategory === 'Technical';
+  const showLocal = selectedCategory === 'All' || selectedCategory === 'Local SEO';
+  const showKeyword = selectedCategory === 'All' || selectedCategory === 'Keyword Research' || selectedCategory === 'On-Page';
 
   return (
-    <div className="pt-28 pb-20">
+    <div className="pt-24 pb-20 bg-[#060909]">
       
-      {/* Hero */}
-      <section className="py-16 sm:py-24 bg-[#080A0F] border-b border-white/8">
+      {/* 1. Case Studies Hero with Performance Intelligence HUD */}
+      <CaseStudiesHero />
+
+      {/* 2. Premium Segmented Filter Control */}
+      <section className="py-8 bg-[#060909] border-b border-white/5 sticky top-20 z-30 backdrop-blur-xl bg-[#060909]/90">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl space-y-6">
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#11151E] border border-white/10 text-xs font-mono text-[#B7FF3C]">
-              <span>03 / CASE STUDIES & AUDIT LOGS</span>
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            
+            <div className="flex items-center space-x-2 text-xs font-mono text-[#5E736D]">
+              <span className="w-2 h-2 rounded-full bg-[#00E59B]" />
+              <span className="text-white font-bold">SYSTEM FILTER:</span>
+              <span>Select Architecture Domain</span>
             </div>
 
-            <h1 className="text-4xl sm:text-6xl font-extrabold text-[#F7F8FA] tracking-tight font-display leading-[1.1]">
-              SEO Portfolio
-            </h1>
-
-            <p className="text-lg sm:text-xl text-[#B5BBC7] leading-relaxed">
-              Real problem solving across technical crawling audits, keyword intent clustering, and localized search optimization. Documented methodology rather than unverified marketing hype.
-            </p>
-
-            {/* Category Filters */}
-            <div className="flex flex-wrap gap-2 pt-4">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setSelectedCategory(cat)}
-                  className={`px-4 py-2 rounded-xl text-xs font-mono transition-all ${
-                    selectedCategory === cat
-                      ? 'bg-[#B7FF3C] text-[#080A0F] font-bold shadow-md'
-                      : 'bg-[#11151E] text-[#B5BBC7] hover:text-white border border-white/10'
-                  }`}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Grid of Projects */}
-      <section className="py-20 bg-[#0D1017]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {filteredStudies.map((study) => (
-              <div
-                key={study.id}
-                className="overflow-hidden rounded-3xl bg-[#11151E] border border-white/10 hover:border-[#B7FF3C]/40 transition-all flex flex-col justify-between group"
-              >
-                {CASE_STUDY_IMAGES[study.id] && (
-                  <div className="relative aspect-video overflow-hidden border-b border-white/10 bg-[#080A0F]">
-                    <img
-                      src={CASE_STUDY_IMAGES[study.id]}
-                      alt={`${study.title} case study visual`}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#11151E]/55 via-transparent to-transparent pointer-events-none" />
-                  </div>
-                )}
-
-                <div className="p-6 sm:p-8 space-y-4">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono px-2.5 py-1 rounded bg-[#080A0F] text-[#B7FF3C] border border-white/10">
-                      {study.status}
-                    </span>
-                    <span className="text-xs font-mono text-[#7D8595]">
-                      {study.category} • {study.location}
-                    </span>
-                  </div>
-
-                  <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-[#B7FF3C] transition-colors leading-snug">
-                    {study.title}
-                  </h3>
-
-                  <div className="text-xs text-[#7D8595] font-mono">
-                    <strong className="text-[#B5BBC7]">Context:</strong> {study.clientType}
-                  </div>
-
-                  <p className="text-xs sm:text-sm text-[#B5BBC7] leading-relaxed">
-                    {study.challenge}
-                  </p>
-
-                  {/* Findings */}
-                  <div className="p-4 rounded-xl bg-[#161C28] border border-white/5 space-y-2">
-                    <span className="text-[11px] font-mono uppercase text-[#45E6FF] block font-bold">
-                      Key Audit Diagnostics
-                    </span>
-                    <ul className="space-y-1.5 text-xs text-[#B5BBC7]">
-                      {study.findings.slice(0, 3).map((f, i) => (
-                        <li key={i} className="flex items-start space-x-2">
-                          <span className="text-[#B7FF3C] font-mono">•</span>
-                          <span>{f}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Actions Taken */}
-                  <div className="space-y-1 text-xs text-[#7D8595]">
-                    <span className="font-mono text-white block">Actions Executed:</span>
-                    <p className="line-clamp-2">{study.actionsTaken.join(' • ')}</p>
-                  </div>
-                </div>
-
-                <div className="mx-6 sm:mx-8 mb-6 sm:mb-8 pt-4 border-t border-white/5 flex items-center justify-between">
-                  <div className="text-xs font-mono text-[#B7FF3C]">
-                    {study.resultSummary}
-                  </div>
+            {/* Segmented Control Bar */}
+            <div className="flex flex-wrap p-1.5 rounded-full bg-[#080D0D] border border-white/10 shadow-lg gap-1">
+              {categories.map((cat) => {
+                const isActive = selectedCategory === cat;
+                return (
                   <button
-                    onClick={() => setActiveStudyModal(study)}
-                    className="px-3.5 py-2 rounded-lg bg-[#161C28] text-white text-xs font-mono hover:bg-[#B7FF3C] hover:text-[#080A0F] transition-colors flex items-center space-x-1"
+                    key={cat}
+                    onClick={() => setSelectedCategory(cat)}
+                    className={`relative px-4 py-2 rounded-full text-xs font-mono font-medium transition-all duration-300 ${
+                      isActive
+                        ? 'bg-gradient-to-r from-[#00E59B] to-[#00FFD1] text-[#060909] font-bold shadow-[0_0_15px_rgba(0,229,155,0.4)]'
+                        : 'text-[#94A3B8] hover:text-white hover:bg-white/5'
+                    }`}
                   >
-                    <span>Inspect</span>
-                    <ArrowUpRight className="w-3.5 h-3.5" />
+                    {cat}
                   </button>
-                </div>
-              </div>
-            ))}
+                );
+              })}
+            </div>
+
           </div>
         </div>
       </section>
 
-      {/* Modal Detail for Deep Dive */}
-      {activeStudyModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-[#080A0F]/85 backdrop-blur-md overflow-y-auto">
-          <div className="relative w-full max-w-3xl bg-[#11151E] border border-white/14 rounded-3xl p-6 sm:p-8 shadow-2xl max-h-[90vh] overflow-y-auto space-y-6">
-            <button
-              onClick={() => setActiveStudyModal(null)}
-              className="absolute top-6 right-6 p-2 rounded-full bg-[#161C28] text-white hover:bg-white/10"
-            >
-              ✕
-            </button>
-
-            <div className="space-y-2">
-              <span className="text-xs font-mono text-[#B7FF3C] px-2.5 py-1 rounded bg-[#161C28]">
-                {activeStudyModal.status} • {activeStudyModal.category}
-              </span>
-              <h3 className="text-2xl font-bold text-white font-display">
-                {activeStudyModal.title}
-              </h3>
-              <p className="text-xs font-mono text-[#7D8595]">
-                {activeStudyModal.clientType} — {activeStudyModal.location}
-              </p>
+      {/* 3. Featured Case Studies Bento Container */}
+      <section className="py-16 bg-[#060909]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+          
+          {/* Case Study 01: Technical Crawl & Indexation */}
+          {showTechnical && (
+            <div className="animate-in fade-in duration-300">
+              <TechnicalCrawlCaseStudy onInspect={() => setInspectedStudy(studyMap.technical)} />
             </div>
+          )}
 
-            {CASE_STUDY_IMAGES[activeStudyModal.id] && (
-              <div className="relative aspect-video overflow-hidden rounded-2xl border border-white/10 bg-[#080A0F]">
-                <img
-                  src={CASE_STUDY_IMAGES[activeStudyModal.id]}
-                  alt={`${activeStudyModal.title} case study visual`}
-                  className="h-full w-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#080A0F]/35 via-transparent to-transparent pointer-events-none" />
-              </div>
-            )}
-
-            <div className="space-y-3">
-              <h4 className="text-sm font-bold text-white uppercase font-mono">1. The Search Bottleneck</h4>
-              <p className="text-xs sm:text-sm text-[#B5BBC7] leading-relaxed bg-[#161C28] p-4 rounded-xl border border-white/5">
-                {activeStudyModal.challenge}
-              </p>
+          {/* Case Study 02: Local SEO & Google Business Profile */}
+          {showLocal && (
+            <div className="animate-in fade-in duration-300">
+              <LocalSeoCaseStudy onInspect={() => setInspectedStudy(studyMap.local)} />
             </div>
+          )}
 
-            <div className="space-y-3">
-              <h4 className="text-sm font-bold text-white uppercase font-mono">2. Audit Findings</h4>
-              <div className="space-y-2">
-                {activeStudyModal.findings.map((finding, idx) => (
-                  <div key={idx} className="p-3 rounded-xl bg-[#0D1017] border border-white/5 text-xs text-[#B5BBC7] flex items-start space-x-2">
-                    <span className="text-[#B7FF3C] font-bold font-mono">[{idx + 1}]</span>
-                    <span>{finding}</span>
-                  </div>
-                ))}
-              </div>
+          {/* Case Study 03: Commercial Keyword Clustering & Topology */}
+          {showKeyword && (
+            <div className="animate-in fade-in duration-300">
+              <KeywordClusterCaseStudy onInspect={() => setInspectedStudy(studyMap.keyword)} />
             </div>
+          )}
 
-            <div className="space-y-3">
-              <h4 className="text-sm font-bold text-white uppercase font-mono">3. Actions & Resolution</h4>
-              <div className="space-y-2">
-                {activeStudyModal.actionsTaken.map((action, idx) => (
-                  <div key={idx} className="p-3 rounded-xl bg-[#0D1017] border border-[#B7FF3C]/20 text-xs text-white flex items-start space-x-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#B7FF3C] flex-shrink-0 mt-0.5" />
-                    <span>{action}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="p-4 rounded-xl bg-[#161C28] border border-white/5 space-y-1">
-              <span className="text-[11px] font-mono uppercase text-[#45E6FF] font-bold">Key Architectural Takeaway:</span>
-              <p className="text-xs text-[#B5BBC7] italic">{activeStudyModal.keyLearning}</p>
-            </div>
-
-            <div className="pt-4 flex justify-end">
-              <button
-                onClick={() => {
-                  setActiveStudyModal(null);
-                  onRequestReview();
-                }}
-                className="px-6 py-3 rounded-xl bg-[#B7FF3C] text-[#080A0F] font-bold text-xs sm:text-sm hover:bg-[#A8F536]"
-              >
-                Request Similar SEO Audit for Your Site
-              </button>
-            </div>
-          </div>
         </div>
-      )}
+      </section>
+
+      {/* 4. Deep Inspection Modal */}
+      <CaseStudyModal
+        study={inspectedStudy}
+        onClose={() => setInspectedStudy(null)}
+        onRequestReview={onRequestReview}
+      />
 
     </div>
   );
 };
 
-export const AboutPage: React.FC<{ onRouteChange: (route: PageRoute) => void; onRequestReview: () => void }> = ({
-  onRouteChange,
-  onRequestReview
-}) => {
+// ==========================================
+// PAGE 2 — ABOUT DANIYAL ASAD
+// ==========================================
+export const AboutPage: React.FC<PageProps> = ({ onRouteChange, onRequestReview }) => {
   return (
-    <div className="pt-28 pb-20">
+    <div className="pt-24 pb-20 bg-[#060909]">
       
-      {/* Hero */}
-      <section className="py-16 sm:py-24 bg-[#080A0F] border-b border-white/8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            
-            <div className="lg:col-span-7 space-y-6">
-              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#11151E] border border-white/10 text-xs font-mono text-[#B7FF3C]">
-                <span>PERSONAL ENTITY & BACKGROUND</span>
-              </div>
+      {/* 1. Asymmetric Bento Hero with Portrait Intelligence Card & HUD */}
+      <AboutHero
+        onRouteChange={onRouteChange}
+        onRequestReview={onRequestReview}
+      />
 
-              <h1 className="text-4xl sm:text-6xl font-extrabold text-[#F7F8FA] tracking-tight font-display leading-[1.1]">
-                About Daniyal
-              </h1>
+      {/* 2. Conceptual Foundation & Search Engine Pipeline Flow */}
+      <SearchFlowStory />
 
-              <p className="text-xl font-medium text-[#45E6FF] font-display">
-                Junior SEO Executive based in Karachi, Pakistan.
-              </p>
+      {/* 3. Engineering Principles Bento (Diagnose Depth, Semantic Clusters, Tracking) */}
+      <EngineeringPrinciplesBento />
 
-              <p className="text-base sm:text-lg text-[#B5BBC7] leading-relaxed">
-                I help businesses improve organic search visibility through disciplined technical diagnostics, keyword clustering, on-page optimization, and local search architecture.
-              </p>
+      {/* 4. Interactive Capability Matrix (What I Work On) */}
+      <CapabilityMatrix />
 
-              <p className="text-sm sm:text-base text-[#7D8595] leading-relaxed">
-                I discovered search engine optimization at the intersection of web technology, data analysis, and user psychology. Instead of treating SEO as generic marketing tricks, I focus on how search bots parse DOM trees, evaluate crawl efficiency, and match search intent with user-first content.
-              </p>
+      {/* 5. 5-Phase Systematic SEO Workflow Timeline */}
+      <WorkflowTimeline />
 
-              <div className="pt-2 flex gap-4">
-                <button
-                  onClick={onRequestReview}
-                  className="px-6 py-3.5 rounded-xl bg-[#B7FF3C] text-[#080A0F] font-bold text-sm hover:bg-[#A8F536] transition-all"
-                >
-                  Work With Daniyal
-                </button>
-                <button
-                  onClick={() => onRouteChange('contact')}
-                  className="px-6 py-3.5 rounded-xl bg-[#161C28] text-white font-semibold text-sm border border-white/10"
-                >
-                  Send a Direct Message
-                </button>
-              </div>
-            </div>
+      {/* 6. Technical Toolbox Mini-Bento */}
+      <ToolboxMiniBento />
 
-            <div className="lg:col-span-5 flex justify-center">
-              <div className="w-full max-w-sm rounded-3xl overflow-hidden border border-white/14 shadow-2xl bg-[#11151E]">
-                <img
-                  src={daniyalPortrait}
-                  alt="Daniyal, Junior SEO Executive in Karachi"
-                  className="w-full h-auto object-cover grayscale contrast-105 hover:grayscale-0 transition-all duration-500"
-                  referrerPolicy="no-referrer"
-                />
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* Work Routine & Principles */}
-      <section className="py-20 bg-[#0D1017]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="p-6 rounded-2xl bg-[#11151E] border border-white/8 space-y-3">
-              <span className="text-xs font-mono text-[#B7FF3C] uppercase">01. Discovery & Crawling</span>
-              <h3 className="text-lg font-bold text-white">Diagnostic Depth</h3>
-              <p className="text-xs text-[#B5BBC7] leading-relaxed">
-                I crawl websites with Screaming Frog and evaluate Search Console coverage before proposing any content changes.
-              </p>
-            </div>
-            <div className="p-6 rounded-2xl bg-[#11151E] border border-white/8 space-y-3">
-              <span className="text-xs font-mono text-[#45E6FF] uppercase">02. Intent Mapping</span>
-              <h3 className="text-lg font-bold text-white">Semantic Clusters</h3>
-              <p className="text-xs text-[#B5BBC7] leading-relaxed">
-                Grouping commercial and informational queries prevents cannibalization and builds topical authority.
-              </p>
-            </div>
-            <div className="p-6 rounded-2xl bg-[#11151E] border border-white/8 space-y-3">
-              <span className="text-xs font-mono text-purple-400 uppercase">03. Measurement</span>
-              <h3 className="text-lg font-bold text-white">Transparent Tracking</h3>
-              <p className="text-xs text-[#B5BBC7] leading-relaxed">
-                Direct Search Console and GA4 data tracking organic clicks and inquiries, not fake vanity numbers.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* 7. Personal Positioning Conversion Panel */}
+      <AboutPositioningCta
+        onRouteChange={onRouteChange}
+        onRequestReview={onRequestReview}
+      />
 
     </div>
   );

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { PageRoute, CaseStudy } from './types';
+import { PageRoute } from './types';
 import { CustomCursor } from './components/CustomCursor';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/FinalCtaSection';
@@ -14,6 +14,8 @@ import { TechnicalSeoPage, OnPageSeoPage } from './pages/TechnicalSeoPage';
 import { LocalSeoPage, KeywordResearchPage } from './pages/LocalSeoPage';
 import { PortfolioPage, AboutPage } from './pages/PortfolioPage';
 import { BlogPage, ContactPage } from './pages/BlogPage';
+import { SerpPreviewToolPage } from './pages/SerpPreviewToolPage';
+import { NotFoundPage } from './pages/NotFoundPage';
 
 const BASE_PATH = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -22,7 +24,12 @@ function routeFromPathname(pathname: string): PageRoute {
     ? pathname.slice(BASE_PATH.length) || '/'
     : pathname;
 
-  return ROUTE_BY_PATH[appPath] || 'home';
+  // Clean trailing slash unless root
+  const normalizedPath = (appPath.length > 1 && appPath.endsWith('/')) 
+    ? appPath.slice(0, -1) 
+    : appPath;
+
+  return ROUTE_BY_PATH[normalizedPath] || (normalizedPath === '/' ? 'home' : 'not-found');
 }
 
 function pathForRoute(route: PageRoute): string {
@@ -46,7 +53,7 @@ export default function App() {
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  // Updates <title>, meta description, canonical & OG tags per route
+  // Updates <title>, meta description, canonical, OG tags & JSON-LD schema per route
   usePageSEO(currentRoute);
 
   const handleNavigate = (route: PageRoute) => {
@@ -64,7 +71,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#080A0F] text-[#F7F8FA] selection:bg-[#B7FF3C] selection:text-[#080A0F] font-sans relative antialiased">
+    <div className="min-h-screen bg-[#060909] text-[#F4FAF7] selection:bg-[#00E59B] selection:text-[#060909] font-sans relative antialiased">
       {/* Custom Desktop Cursor */}
       <CustomCursor />
 
@@ -140,10 +147,23 @@ export default function App() {
           />
         )}
 
+        {currentRoute === 'free-seo-tools' && (
+          <SerpPreviewToolPage
+            onRouteChange={handleNavigate}
+            onRequestReview={handleOpenReviewModal}
+          />
+        )}
+
         {currentRoute === 'contact' && (
           <ContactPage
             onRouteChange={handleNavigate}
             onRequestReview={handleOpenReviewModal}
+          />
+        )}
+
+        {currentRoute === 'not-found' && (
+          <NotFoundPage
+            onRouteChange={handleNavigate}
           />
         )}
       </main>

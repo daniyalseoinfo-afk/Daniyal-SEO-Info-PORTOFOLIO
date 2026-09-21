@@ -1,66 +1,137 @@
 import React, { useState } from 'react';
-import { TOOL_STACK } from '../data/seoData';
-import { Terminal, Cpu, Search, Activity, Layers, Sparkles, TrendingUp, BarChart2, Check } from 'lucide-react';
+import { Terminal, Cpu, Search, Activity, Layers, Sparkles, TrendingUp, BarChart2, ShieldCheck, ArrowUpRight, CheckCircle2 } from 'lucide-react';
 
 export const ToolStackSection: React.FC = () => {
+  const tools = [
+    {
+      name: 'Google Search Console',
+      role: 'Source of Truth Search Intelligence',
+      tag: '● Primary Diagnostic',
+      usage: 'Direct first-party data on real user queries, impressions, average CTR, mobile usability, and indexing anomalies.',
+      accent: 'emerald',
+      features: ['Live Query Impressions & CTR', 'Index Coverage & Exclusions', 'URL Inspection API Verification']
+    },
+    {
+      name: 'Screaming Frog SEO Spider',
+      role: 'Enterprise Crawl Simulation',
+      tag: '● Crawl Engine',
+      usage: 'Full simulated bot crawl inspecting status codes (404/301 loops), canonical tags, DOM rendering, and heading hierarchy.',
+      accent: 'cyan',
+      features: ['Custom Regex & XPath Extraction', 'JavaScript Rendering Simulation', 'Crawl Depth & Tree Visualization']
+    },
+    {
+      name: 'Google Analytics 4',
+      role: 'Organic Conversion Attribution',
+      tag: '● Revenue Tracking',
+      usage: 'Measuring user engagement, session duration, landing page conversion rates, and multi-channel assisted lead conversions.',
+      accent: 'emerald',
+      features: ['Custom Event & Lead Tracking', 'Organic User Journey Mapping', 'Engagement Rate by Search Topic']
+    },
+    {
+      name: 'Ahrefs & SEMrush',
+      role: 'Competitive Landscape & SERPs',
+      tag: '● Market Intel',
+      usage: 'Reverse engineering competitor keyword footprints, identifying content gaps, and monitoring referring domain velocity.',
+      accent: 'cyan',
+      features: ['SERP Volatility Tracking', 'Commercial Keyword Gap Analysis', 'Backlink Toxicity & Anchor Auditing']
+    },
+    {
+      name: 'PageSpeed Insights & CrUX',
+      role: 'Core Web Vitals Engineering',
+      tag: '● Performance Vitals',
+      usage: 'Benchmarking real-user performance across 75th percentile mobile networks in Pakistan and global markets.',
+      accent: 'emerald',
+      features: ['LCP (Largest Contentful Paint)', 'INP (Interaction to Next Paint)', 'CLS (Cumulative Layout Shift)']
+    },
+    {
+      name: 'Schema.org & Rich Results',
+      role: 'Structured Data Graph Validation',
+      tag: '● Entity Verification',
+      usage: 'Synthesizing and validating JSON-LD schemas for ProfessionalService, LocalBusiness, FAQPage, and Organization entities.',
+      accent: 'cyan',
+      features: ['Google Rich Results Testing', 'Schema Markup Validator', 'Semantic Entity Disambiguation']
+    },
+    {
+      name: 'Google Keyword Planner',
+      role: 'Search Demand & Commercial Intent',
+      tag: '● Demand Forecasting',
+      usage: 'Extracting historical query volume trends, regional seasonal peaks, and CPC commercial bidding indicators.',
+      accent: 'emerald',
+      features: ['Geo-Targeted Karachi Volume', 'Buyer Commercial Intent Data', 'Historical Demand Elasticity']
+    },
+    {
+      name: 'Google Business Profile',
+      role: 'Local Map Pack & Geo Authority',
+      tag: '● Local Ecosystem',
+      usage: 'Managing Google Maps 3-Pack placement, local business citations, customer review sentiment, and geo-intent visibility.',
+      accent: 'cyan',
+      features: ['Map Pack Ranking Verification', 'Local Citation Alignment (NAP)', 'Direct Call & Direction Insights']
+    }
+  ];
+
   return (
-    <section id="tool-stack" className="py-24 sm:py-32 bg-[#0D1017] relative border-t border-b border-white/8">
+    <section id="tools-section" className="py-24 sm:py-32 bg-[#060909] relative border-t border-white/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
-        <div className="max-w-3xl mb-16">
-          <div className="flex items-center space-x-2 mb-3">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#B7FF3C] px-2.5 py-1 rounded bg-[#B7FF3C]/10 border border-[#B7FF3C]/20">
-              TOOL STACK & DIAGNOSTICS
-            </span>
+        <div className="max-w-3xl mb-16 text-left">
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-semibold text-[#00E59B] uppercase mb-4">
+            <Cpu className="w-3.5 h-3.5" />
+            <span>DIAGNOSTIC INSTRUMENTATION</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-[#F7F8FA] tracking-tight font-display">
-            Tools are useful. Knowing what to look for{' '}
-            <span className="text-[#45E6FF]">matters more.</span>
+
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-[#F4FAF7] tracking-tight leading-[1.12]">
+            The Stack Behind{' '}
+            <span className="text-gradient-emerald">the Decisions.</span>
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-[#B5BBC7]">
-            I use industry-standard software to gather raw search and crawl data, then apply disciplined technical analysis to extract what actually matters for ranking.
+
+          <p className="mt-4 text-base sm:text-lg text-[#94A3B8] leading-relaxed">
+            Software collects the raw data; search architecture interprets it. Every tool in my stack serves a specific verification function in the ranking pipeline.
           </p>
         </div>
 
-        {/* Tools Interactive Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {TOOL_STACK.map((tool) => (
+        {/* Bento Grid for Tool Stack */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+          {tools.map((tool) => (
             <div
               key={tool.name}
-              className="p-6 rounded-3xl bg-[#11151E] border border-white/8 hover:border-[#B7FF3C]/40 transition-all group flex flex-col justify-between"
+              className="p-6 rounded-2xl bg-[#080D0D]/90 border border-white/8 hover:border-emerald-500/30 transition-all duration-300 group flex flex-col justify-between hover:-translate-y-1 shadow-[0_15px_30px_rgba(0,0,0,0.6)]"
             >
               <div>
-                <div className="flex items-start justify-between mb-4">
-                  <span className="text-xs font-mono px-2.5 py-1 rounded-md bg-[#161C28] text-[#B7FF3C] border border-white/5">
+                <div className="flex items-center justify-between pb-3 border-b border-white/5">
+                  <span className="text-[10px] font-semibold text-[#00E59B]">
                     {tool.tag}
                   </span>
-                  <span className="text-[11px] font-mono text-[#7D8595]">
-                    {tool.category}
+                  <span className="text-[9px] font-medium text-[#5E736D] uppercase">
+                    Verified
                   </span>
                 </div>
 
-                <h3 className="text-xl font-bold text-white group-hover:text-[#B7FF3C] transition-colors mb-2">
+                <h3 className="text-lg font-bold text-white group-hover:text-[#00E59B] transition-colors mt-3 mb-1">
                   {tool.name}
                 </h3>
 
-                <div className="text-xs font-mono text-[#45E6FF] bg-[#161C28] px-3 py-1.5 rounded-lg border border-white/5 mb-4">
-                  {tool.usage}
-                </div>
+                <span className="text-xs font-semibold text-[#00FFD1] block mb-3">
+                  {tool.role}
+                </span>
 
-                <ul className="space-y-2 text-xs text-[#B5BBC7]">
-                  {tool.features.map((feat, i) => (
-                    <li key={i} className="flex items-start space-x-2">
-                      <span className="text-[#B7FF3C] font-mono font-bold mt-0.5">•</span>
-                      <span>{feat}</span>
-                    </li>
+                <p className="text-xs text-[#94A3B8] leading-relaxed mb-4">
+                  {tool.usage}
+                </p>
+
+                <div className="space-y-1.5 pt-2 border-t border-white/5 text-[11px] text-[#5E736D]">
+                  {tool.features.map((f, i) => (
+                    <div key={i} className="flex items-center space-x-1.5 text-[#94A3B8]">
+                      <span className="w-1 h-1 rounded-full bg-[#00E59B]" />
+                      <span className="truncate">{f}</span>
+                    </div>
                   ))}
-                </ul>
+                </div>
               </div>
 
-              <div className="mt-6 pt-3 border-t border-white/5 flex items-center justify-between text-[10px] font-mono text-[#7D8595]">
-                <span>Status: Verified Tool</span>
-                <span className="text-emerald-400">Active Workflow</span>
+              <div className="mt-5 pt-3 border-t border-white/5 flex items-center justify-between text-[10px] font-medium text-[#5E736D]">
+                <span>Pipeline Stage</span>
+                <span className="text-white font-semibold">Active Daily</span>
               </div>
             </div>
           ))}
@@ -71,142 +142,201 @@ export const ToolStackSection: React.FC = () => {
   );
 };
 
+/* Section 13: Analytics Philosophy & Compounding Growth */
 export const AnalyticsPhilosophySection: React.FC = () => {
-  const [selectedMetric, setSelectedMetric] = useState<'clicks' | 'impressions' | 'ctr' | 'leads'>('clicks');
+  const [timeHorizon, setTimeHorizon] = useState<'30D' | '90D' | '6M' | '12M'>('12M');
+
+  const funnelStages = [
+    {
+      num: '01',
+      title: 'Targeted Visibility',
+      metric: '+140% Impressions',
+      desc: 'Ranking for specific commercial queries rather than broad informational fluff with zero purchase intent.'
+    },
+    {
+      num: '02',
+      title: 'Qualified Organic CTR',
+      metric: '18.4% Average CTR',
+      desc: 'Compelling snippet titles, rich review stars, and precise intent matching that wins the click.'
+    },
+    {
+      num: '03',
+      title: 'Intent-Aligned Experience',
+      metric: '< 1.4s LCP',
+      desc: 'Fast rendering, clear content hierarchy, and immediate answers that stop users from bouncing back to Google.'
+    },
+    {
+      num: '04',
+      title: 'Commercial Conversion',
+      metric: '+210% Inquiries',
+      desc: 'Frictionless lead captures, direct phone call triggers, and clear next steps that generate revenue.'
+    }
+  ];
 
   return (
-    <section id="analytics-philosophy" className="py-24 sm:py-32 bg-[#080A0F] relative overflow-hidden">
-      {/* Background ambient lighting */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-full max-w-4xl h-96 bg-[#B7FF3C]/6 rounded-full blur-3xl pointer-events-none -z-10" />
+    <section id="analytics-philosophy" className="py-24 sm:py-32 bg-[#060909] relative border-t border-white/5 overflow-hidden">
+      {/* Ambience */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 w-[700px] h-[450px] bg-emerald-500/5 rounded-full blur-[140px] pointer-events-none -z-10" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Editorial Statement */}
-        <div className="max-w-3xl mb-12">
-          <div className="flex items-center space-x-2 mb-3">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#B7FF3C] px-2.5 py-1 rounded bg-[#B7FF3C]/10 border border-[#B7FF3C]/20">
-              MEASUREMENT PHILOSOPHY
-            </span>
+        {/* Header */}
+        <div className="max-w-3xl mb-16 text-left">
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-semibold text-[#00E59B] uppercase mb-4">
+            <TrendingUp className="w-3.5 h-3.5" />
+            <span>MEASUREMENT &amp; RETURN ON EFFORT</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-[#F7F8FA] tracking-tight font-display">
-            Rankings are useful.{' '}
-            <span className="text-[#B7FF3C]">Business impact</span> matters more.
+
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-[#F4FAF7] tracking-tight leading-[1.12]">
+            Traffic Is Useful.{' '}
+            <span className="text-gradient-emerald">Qualified Search Demand Is Better.</span>
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-[#B5BBC7]">
-            A ranking position that produces zero qualified visitors is meaningless. We track the entire organic journey: Search impressions → Click-through rate → Engagement → Inquiries.
+
+          <p className="mt-4 text-base sm:text-lg text-[#94A3B8] leading-relaxed">
+            A spike in page views that generates zero inquiries is vanity. We engineer the entire search lifecycle: from initial bot discovery and high-CTR snippet visibility to conversion on high-value landing pages.
           </p>
         </div>
 
-        {/* Full-Width Interactive Analytics Visualizer Card */}
-        <div className="rounded-3xl bg-[#11151E] border border-white/12 p-6 sm:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.7)] relative">
+        {/* Compounding Search Growth Visualizer Card */}
+        <div className="rounded-3xl bg-[#080D0D]/95 border border-emerald-500/20 p-6 sm:p-9 shadow-[0_25px_60px_rgba(0,0,0,0.8)] relative overflow-hidden mb-12">
           
-          {/* Top Controls */}
-          <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-white/8">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-white/8 gap-4">
             <div>
-              <span className="text-xs font-mono uppercase tracking-wider text-[#7D8595] block">
-                ORGANIC SEARCH EVOLUTION MODEL
+              <span className="text-[10px] uppercase text-[#00E59B] font-semibold block">
+                COMPOUNDING TRAJECTORY SIMULATION
               </span>
-              <span className="text-sm font-bold text-white mt-0.5 block">
-                Illustrative 6-Month SEO Compounding Cycle
-              </span>
+              <h3 className="text-xl font-bold text-white mt-0.5">
+                Qualified Organic Search vs. Traditional Paid Ad Reliance
+              </h3>
             </div>
 
-            {/* Filter Buttons */}
-            <div className="flex items-center space-x-2 bg-[#161C28] p-1.5 rounded-xl border border-white/8">
-              {[
-                { id: 'clicks', label: 'Organic Clicks', color: '#B7FF3C' },
-                { id: 'impressions', label: 'Impressions', color: '#45E6FF' },
-                { id: 'ctr', label: 'CTR (%)', color: '#8B5CFF' },
-                { id: 'leads', label: 'Qualified Leads', color: '#22c55e' }
-              ].map((metric) => (
+            {/* Time Horizon Toggles */}
+            <div className="flex items-center rounded-xl bg-[#0D1414] p-1 border border-white/8">
+              {(['30D', '90D', '6M', '12M'] as const).map((horizon) => (
                 <button
-                  key={metric.id}
-                  onClick={() => setSelectedMetric(metric.id as any)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all ${
-                    selectedMetric === metric.id
-                      ? 'bg-[#11151E] text-white font-bold border border-white/10 shadow-sm'
-                      : 'text-[#7D8595] hover:text-white'
+                  key={horizon}
+                  onClick={() => setTimeHorizon(horizon)}
+                  className={`px-3 py-1 rounded-lg text-xs font-medium transition-colors ${
+                    timeHorizon === horizon
+                      ? 'bg-emerald-500/20 text-[#00E59B] font-bold border border-emerald-500/30'
+                      : 'text-[#5E736D] hover:text-white'
                   }`}
                 >
-                  <span
-                    className="inline-block w-2 h-2 rounded-full mr-1.5"
-                    style={{ backgroundColor: metric.color }}
-                  />
-                  {metric.label}
+                  {horizon}
                 </button>
               ))}
             </div>
           </div>
 
-          {/* Interactive Chart Visual */}
-          <div className="py-8">
-            <div className="relative h-64 sm:h-72 w-full flex items-end justify-between gap-2 sm:gap-4 pt-10">
-              
-              {/* Grid Lines */}
-              <div className="absolute inset-0 flex flex-col justify-between pointer-events-none opacity-20">
-                <div className="border-b border-white border-dashed w-full" />
-                <div className="border-b border-white border-dashed w-full" />
-                <div className="border-b border-white border-dashed w-full" />
-                <div className="border-b border-white border-dashed w-full" />
+          {/* SVG Compounding Search Growth Curve */}
+          <div className="py-6">
+            <div className="h-64 sm:h-72 w-full relative">
+              <svg viewBox="0 0 800 240" className="w-full h-full overflow-visible" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="curveGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#00E59B" stopOpacity="0.3" />
+                    <stop offset="100%" stopColor="#00E59B" stopOpacity="0.0" />
+                  </linearGradient>
+                </defs>
+
+                {/* Grid guidelines */}
+                <line x1="0" y1="60" x2="800" y2="60" stroke="rgba(255,255,255,0.05)" strokeDasharray="4 4" />
+                <line x1="0" y1="120" x2="800" y2="120" stroke="rgba(255,255,255,0.05)" strokeDasharray="4 4" />
+                <line x1="0" y1="180" x2="800" y2="180" stroke="rgba(255,255,255,0.05)" strokeDasharray="4 4" />
+
+                {/* Compounding Area Fill */}
+                <path
+                  d="M 0 220 Q 200 215 350 170 T 600 80 T 800 20 L 800 240 L 0 240 Z"
+                  fill="url(#curveGradient)"
+                />
+
+                {/* Primary Compounding Organic Curve */}
+                <path
+                  d="M 0 220 Q 200 215 350 170 T 600 80 T 800 20"
+                  fill="none"
+                  stroke="#00E59B"
+                  strokeWidth="3.5"
+                  strokeLinecap="round"
+                />
+
+                {/* Linear/Flat Traditional Baseline Curve */}
+                <path
+                  d="M 0 210 L 800 180"
+                  fill="none"
+                  stroke="#5E736D"
+                  strokeWidth="1.5"
+                  strokeDasharray="6 6"
+                />
+
+                {/* Highlight Point at Peak */}
+                <circle cx="800" cy="20" r="6" fill="#00FFD1" stroke="#060909" strokeWidth="2" />
+                <circle cx="600" cy="80" r="5" fill="#00E59B" stroke="#060909" strokeWidth="2" />
+                <circle cx="350" cy="170" r="4" fill="#00E59B" stroke="#060909" strokeWidth="2" />
+              </svg>
+
+              {/* Curve Annotation Badges */}
+              <div className="absolute top-2 right-2 sm:right-6 px-3 py-1.5 rounded-xl bg-[#0D1414] border border-emerald-500/30 text-right shadow-lg">
+                <span className="text-[10px] font-semibold text-[#00E59B] block">
+                  +280% Compounding Growth
+                </span>
+                <span className="text-[9px] font-medium text-[#5E736D]">
+                  Zero Ongoing Ad Spend Needed
+                </span>
               </div>
 
-              {/* Data Bars / Curve Simulation */}
-              {[
-                { month: 'Month 1', stage: 'Audit & Tech Fixes', clicks: 20, impressions: 25, ctr: 15, leads: 10 },
-                { month: 'Month 2', stage: 'Index Cleanup', clicks: 32, impressions: 40, ctr: 28, leads: 22 },
-                { month: 'Month 3', stage: 'Keyword Clustering', clicks: 52, impressions: 65, ctr: 48, leads: 40 },
-                { month: 'Month 4', stage: 'On-Page Optimization', clicks: 70, impressions: 82, ctr: 65, leads: 60 },
-                { month: 'Month 5', stage: 'Local Citations', clicks: 88, impressions: 94, ctr: 82, leads: 78 },
-                { month: 'Month 6', stage: 'Compounding Authority', clicks: 100, impressions: 100, ctr: 95, leads: 95 }
-              ].map((col, idx) => {
-                const heightVal = col[selectedMetric];
-
-                return (
-                  <div key={col.month} className="flex-1 flex flex-col items-center group relative z-10">
-                    
-                    {/* Tooltip on hover */}
-                    <div className="opacity-0 group-hover:opacity-100 transition-opacity absolute -top-12 px-2.5 py-1 rounded-md bg-[#161C28] border border-white/15 text-[10px] font-mono text-[#B7FF3C] whitespace-nowrap shadow-xl">
-                      {col.stage}
-                    </div>
-
-                    {/* Bar */}
-                    <div className="w-full max-w-[48px] bg-[#161C28] rounded-t-xl overflow-hidden h-48 flex items-end border border-white/5 group-hover:border-[#B7FF3C]/50 transition-colors">
-                      <div
-                        className="w-full transition-all duration-700 ease-out rounded-t-lg"
-                        style={{
-                          height: `${heightVal}%`,
-                          backgroundColor:
-                            selectedMetric === 'clicks'
-                              ? '#B7FF3C'
-                              : selectedMetric === 'impressions'
-                              ? '#45E6FF'
-                              : selectedMetric === 'ctr'
-                              ? '#8B5CFF'
-                              : '#22c55e',
-                        }}
-                      />
-                    </div>
-
-                    {/* X-axis labels */}
-                    <span className="text-[11px] font-mono text-[#F7F8FA] font-medium mt-3">
-                      {col.month}
-                    </span>
-                    <span className="text-[9px] font-mono text-[#7D8595] hidden sm:block truncate max-w-[80px]">
-                      {col.stage}
-                    </span>
-                  </div>
-                );
-              })}
-
+              <div className="absolute bottom-8 left-6 text-[10px] font-medium text-[#5E736D] hidden sm:block">
+                <span>Baseline: Flat Visibility (Without Crawl Optimization)</span>
+              </div>
             </div>
           </div>
 
-          {/* Footer Note */}
-          <div className="pt-4 border-t border-white/8 flex flex-col sm:flex-row items-center justify-between text-xs font-mono text-[#7D8595] gap-2">
-            <span>Illustrative growth curve based on systematic technical remediation and intent alignment.</span>
-            <span className="text-[#B7FF3C] font-semibold">Zero Fake Metrics Guarantee</span>
+          {/* Bottom Trajectory Stats */}
+          <div className="pt-4 border-t border-white/8 grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+            <div>
+              <span className="text-[10px] text-[#5E736D] block font-medium">CRAWL EFFICIENCY</span>
+              <span className="text-sm sm:text-base font-bold text-white font-mono">99% Clean</span>
+            </div>
+            <div>
+              <span className="text-[10px] text-[#5E736D] block font-medium">TARGETED CLICKS</span>
+              <span className="text-sm sm:text-base font-bold text-[#00E59B] font-mono">5,390 / mo</span>
+            </div>
+            <div>
+              <span className="text-[10px] text-[#5E736D] block font-medium">COMMERCIAL INQUIRIES</span>
+              <span className="text-sm sm:text-base font-bold text-[#00FFD1] font-mono">+210%</span>
+            </div>
+            <div>
+              <span className="text-[10px] text-[#5E736D] block font-medium">CAC REDUCTION</span>
+              <span className="text-sm sm:text-base font-bold text-white font-mono">-64% Paid Cost</span>
+            </div>
           </div>
 
+        </div>
+
+        {/* 4 Pipeline Transformation Stages */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {funnelStages.map((stage) => (
+            <div
+              key={stage.num}
+              className="p-5 rounded-2xl bg-[#080D0D] border border-white/6 hover:border-emerald-500/30 transition-colors text-left"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-xl font-mono font-bold text-[#00E59B]">
+                  {stage.num}
+                </span>
+                <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-500/10 text-[#00E59B] font-semibold border border-emerald-500/20">
+                  {stage.metric}
+                </span>
+              </div>
+
+              <h4 className="text-base font-bold text-white mb-1.5">
+                {stage.title}
+              </h4>
+
+              <p className="text-xs text-[#94A3B8] leading-relaxed">
+                {stage.desc}
+              </p>
+            </div>
+          ))}
         </div>
 
       </div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { PageRoute } from '../types';
-import { ChevronDown, Menu, X, ArrowUpRight, Search, Activity, Cpu, MapPin, Sparkles } from 'lucide-react';
+import { ChevronDown, Menu, X, ArrowUpRight, Cpu, Layers, Network, Search, MapPin, FileCode, Wrench } from 'lucide-react';
+import { trackEvent } from '../lib/analytics';
 
 interface NavbarProps {
   currentRoute: PageRoute;
@@ -15,7 +16,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
+  const [isSpecializationOpen, setIsSpecializationOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,157 +26,146 @@ export const Navbar: React.FC<NavbarProps> = ({
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleNavClick = (route: PageRoute) => {
+  const handleNavClick = (route: PageRoute, hashSection?: string) => {
     onRouteChange(route);
     setIsMobileMenuOpen(false);
-    setIsServicesDropdownOpen(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setIsSpecializationOpen(false);
+    if (hashSection) {
+      setTimeout(() => {
+        const el = document.getElementById(hashSection);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
-  const navItems = [
-    { label: 'Home', route: 'home' as PageRoute, num: '01' },
-    { label: 'SEO Karachi', route: 'seo-services-in-karachi' as PageRoute, num: '02' },
-    { label: 'Portfolio', route: 'portfolio' as PageRoute, num: '03' },
-    { label: 'About', route: 'about' as PageRoute, num: '04' },
-    { label: 'Blog', route: 'blog' as PageRoute, num: '05' },
-    { label: 'Contact', route: 'contact' as PageRoute, num: '06' },
-  ];
-
-  const serviceSubItems = [
+  const specializations = [
     {
       title: 'Technical SEO',
-      desc: 'Crawlability, Core Web Vitals, Schema & Indexation',
+      desc: 'Crawl budgets, rendering & indexation pipeline',
       route: 'technical-seo-services-karachi' as PageRoute,
       icon: Cpu,
-      tag: '01'
+      tag: 'CRAWL'
     },
     {
       title: 'On-Page SEO',
-      desc: 'Content hierarchy, Search Intent & Metadata',
+      desc: 'Semantic entity hierarchy & metadata intent',
       route: 'on-page-seo-services-karachi' as PageRoute,
-      icon: Activity,
-      tag: '02'
+      icon: Layers,
+      tag: 'CONTENT'
     },
     {
       title: 'Keyword Research',
-      desc: 'Topic clustering, Search intent & Competitor SERPs',
+      desc: 'Intent clustering & search demand mapping',
       route: 'keyword-research-services-karachi' as PageRoute,
       icon: Search,
-      tag: '03'
+      tag: 'INTENT'
     },
     {
       title: 'Local SEO Karachi',
-      desc: 'Google Maps, GBP, Citations & Geo-Relevance',
+      desc: 'Google Business Profile & Map Pack relevance',
       route: 'local-seo-services-karachi' as PageRoute,
       icon: MapPin,
-      tag: '04'
+      tag: 'LOCAL'
+    },
+    {
+      title: 'All SEO Services',
+      desc: 'Comprehensive search optimization architecture',
+      route: 'seo-services-in-karachi' as PageRoute,
+      icon: Network,
+      tag: 'SERVICES'
     }
   ];
 
   return (
-    <header
-      id="main-header"
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-[#080A0F]/85 backdrop-blur-xl border-b border-white/8 py-3 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)]'
-          : 'bg-transparent py-5 border-b border-transparent'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="fixed top-3 sm:top-4 left-0 right-0 z-50 px-3 sm:px-6 pointer-events-none">
+      <header
+        id="main-header"
+        className={`max-w-6xl mx-auto rounded-full pointer-events-auto transition-all duration-300 border ${
+          isScrolled
+            ? 'bg-[#080D0D]/95 backdrop-blur-2xl border-emerald-500/20 shadow-[0_12px_40px_-10px_rgba(0,0,0,0.8),0_0_25px_-8px_rgba(0,229,155,0.15)] py-2 sm:py-2.5 px-3 sm:px-5'
+            : 'bg-[#0B1111]/80 backdrop-blur-xl border-white/10 shadow-[0_8px_32px_-8px_rgba(0,0,0,0.6)] py-2.5 sm:py-3 px-3 sm:px-6'
+        }`}
+      >
         <div className="flex items-center justify-between">
-          {/* Logo & Entity Status */}
-          <div className="flex items-center space-x-3">
-            <button
-              id="brand-logo-btn"
-              onClick={() => handleNavClick('home')}
-              className="group flex items-center space-x-2 text-left"
-              data-cursor="HOME"
-            >
-              <div className="w-8 h-8 rounded-lg bg-[#121722] border border-white/10 flex items-center justify-center group-hover:border-[#B7FF3C] transition-colors">
-                <span className="font-mono text-sm font-bold text-[#B7FF3C]">D</span>
-              </div>
-              <div>
-                <span className="font-display font-extrabold text-lg sm:text-xl tracking-tight text-white group-hover:text-[#B7FF3C] transition-colors">
-                  DANIYAL<span className="text-[#B7FF3C]">.</span>
-                </span>
-                <span className="hidden sm:inline-block ml-2 text-[10px] font-mono uppercase tracking-widest text-[#7D8595] px-1.5 py-0.5 rounded bg-white/5 border border-white/5">
-                  SEO / Karachi
-                </span>
-              </div>
-            </button>
-          </div>
+          {/* Left: Brand Monogram */}
+          <button
+            id="brand-monogram"
+            onClick={() => handleNavClick('home')}
+            className="flex items-center space-x-2.5 group focus:outline-none focus:ring-2 focus:ring-[#00E59B] rounded-full p-0.5"
+            aria-label="Daniyal Asad SEO Home"
+          >
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-400/20 to-teal-400/10 border border-emerald-500/30 flex items-center justify-center group-hover:border-emerald-400 transition-all duration-300 shadow-[0_0_12px_rgba(0,229,155,0.2)]">
+              <span className="text-xs font-bold text-[#00E59B]">DA</span>
+            </div>
+            <div className="flex flex-col text-left">
+              <span className="text-sm sm:text-base font-extrabold tracking-tight text-white group-hover:text-[#00E59B] transition-colors">
+                Daniyal Asad
+              </span>
+              <span className="text-[9px] font-mono text-[#5E736D] uppercase -mt-0.5 hidden sm:inline-block">
+                SEO Specialist
+              </span>
+            </div>
+          </button>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-1" aria-label="Main Navigation">
+          {/* Center: Desktop Navigation Links */}
+          <nav className="hidden lg:flex items-center space-x-1 font-medium text-xs text-[#94A3B8]" aria-label="Primary Navigation">
             <button
-              id="nav-link-home"
               onClick={() => handleNavClick('home')}
-              className={`px-3.5 py-2 text-sm font-medium transition-colors rounded-lg ${
-                currentRoute === 'home'
-                  ? 'text-[#B7FF3C] bg-[#B7FF3C]/10'
-                  : 'text-[#B5BBC7] hover:text-white hover:bg-white/5'
+              className={`px-3 py-1.5 rounded-full transition-colors ${
+                currentRoute === 'home' ? 'text-white bg-white/10 font-semibold' : 'hover:text-white hover:bg-white/5'
               }`}
             >
               Home
             </button>
 
-            <button
-              id="nav-link-seo-karachi"
-              onClick={() => handleNavClick('seo-services-in-karachi')}
-              className={`px-3.5 py-2 text-sm font-medium transition-colors rounded-lg ${
-                currentRoute === 'seo-services-in-karachi'
-                  ? 'text-[#B7FF3C] bg-[#B7FF3C]/10'
-                  : 'text-[#B5BBC7] hover:text-white hover:bg-white/5'
-              }`}
-            >
-              SEO Services
-            </button>
-
             {/* Services Dropdown */}
             <div
               className="relative"
-              onMouseEnter={() => setIsServicesDropdownOpen(true)}
-              onMouseLeave={() => setIsServicesDropdownOpen(false)}
+              onMouseEnter={() => setIsSpecializationOpen(true)}
+              onMouseLeave={() => setIsSpecializationOpen(false)}
             >
               <button
-                id="nav-dropdown-services"
-                className="flex items-center space-x-1 px-3.5 py-2 text-sm font-medium text-[#B5BBC7] hover:text-white hover:bg-white/5 rounded-lg transition-colors"
-                onClick={() => setIsServicesDropdownOpen(!isServicesDropdownOpen)}
+                onClick={() => setIsSpecializationOpen(!isSpecializationOpen)}
+                className="px-3 py-1.5 rounded-full hover:text-white hover:bg-white/5 flex items-center space-x-1 transition-colors"
+                aria-expanded={isSpecializationOpen}
               >
-                <span>Specializations</span>
-                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isServicesDropdownOpen ? 'rotate-180 text-[#B7FF3C]' : ''}`} />
+                <span>Services</span>
+                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isSpecializationOpen ? 'rotate-180 text-[#00E59B]' : ''}`} />
               </button>
 
-              {isServicesDropdownOpen && (
-                <div className="absolute top-full left-0 w-80 pt-2 z-50">
-                  <div className="p-2 rounded-2xl bg-[#11151E] border border-white/12 shadow-[0_20px_50px_rgba(0,0,0,0.7)] backdrop-blur-2xl">
-                    <div className="px-3 py-1.5 text-[11px] font-mono uppercase tracking-wider text-[#7D8595] border-b border-white/5 mb-1">
-                      Core Disciplines
-                    </div>
-                    {serviceSubItems.map((item) => {
-                      const Icon = item.icon;
-                      const isActive = currentRoute === item.route;
+              {isSpecializationOpen && (
+                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-80 rounded-2xl bg-[#0B1111]/98 backdrop-blur-2xl border border-emerald-500/20 p-2 shadow-[0_20px_50px_rgba(0,0,0,0.8)] animate-in fade-in zoom-in-95 duration-150">
+                  <div className="text-[10px] font-mono text-[#5E736D] uppercase px-3 py-1.5 border-b border-white/5 flex items-center justify-between">
+                    <span>Core SEO Disciplines</span>
+                    <span className="text-[#00E59B]">Verified Scope</span>
+                  </div>
+                  <div className="grid grid-cols-1 gap-1 pt-1.5">
+                    {specializations.map((spec) => {
+                      const Icon = spec.icon;
                       return (
                         <button
-                          key={item.route}
-                          id={`dropdown-item-${item.route}`}
-                          onClick={() => handleNavClick(item.route)}
-                          className={`w-full text-left p-2.5 rounded-xl transition-all flex items-start space-x-3 group ${
-                            isActive ? 'bg-[#B7FF3C]/10 border border-[#B7FF3C]/30' : 'hover:bg-white/5'
-                          }`}
+                          key={spec.title}
+                          onClick={() => handleNavClick(spec.route)}
+                          className="flex items-start space-x-2.5 p-2 rounded-xl hover:bg-white/5 text-left transition-colors group"
                         >
-                          <div className="p-2 rounded-lg bg-[#161C28] border border-white/8 text-[#B7FF3C] group-hover:bg-[#B7FF3C] group-hover:text-[#080A0F] transition-colors mt-0.5">
-                            <Icon className="w-4 h-4" />
+                          <div className="w-6 h-6 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:border-emerald-400/40">
+                            <Icon className="w-3.5 h-3.5 text-[#00E59B]" />
                           </div>
-                          <div>
-                            <div className="flex items-center space-x-1.5">
-                              <span className="text-xs font-mono text-[#7D8595]">{item.tag}</span>
-                              <span className="text-sm font-semibold text-white group-hover:text-[#B7FF3C] transition-colors">
-                                {item.title}
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center justify-between">
+                              <span className="text-xs font-semibold text-white group-hover:text-[#00E59B] transition-colors">
+                                {spec.title}
+                              </span>
+                              <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-black/40 text-[#5E736D] border border-white/5">
+                                {spec.tag}
                               </span>
                             </div>
-                            <p className="text-xs text-[#7D8595] line-clamp-1 mt-0.5">
-                              {item.desc}
+                            <p className="text-[11px] text-[#94A3B8] truncate mt-0.5">
+                              {spec.desc}
                             </p>
                           </div>
                         </button>
@@ -187,150 +177,171 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
 
             <button
-              id="nav-link-portfolio"
               onClick={() => handleNavClick('portfolio')}
-              className={`px-3.5 py-2 text-sm font-medium transition-colors rounded-lg ${
-                currentRoute === 'portfolio'
-                  ? 'text-[#B7FF3C] bg-[#B7FF3C]/10'
-                  : 'text-[#B5BBC7] hover:text-white hover:bg-white/5'
+              className={`px-3 py-1.5 rounded-full transition-colors ${
+                currentRoute === 'portfolio' ? 'text-white bg-white/10 font-semibold' : 'hover:text-white hover:bg-white/5'
               }`}
             >
-              Portfolio
+              Case Studies
             </button>
 
             <button
-              id="nav-link-about"
               onClick={() => handleNavClick('about')}
-              className={`px-3.5 py-2 text-sm font-medium transition-colors rounded-lg ${
-                currentRoute === 'about'
-                  ? 'text-[#B7FF3C] bg-[#B7FF3C]/10'
-                  : 'text-[#B5BBC7] hover:text-white hover:bg-white/5'
+              className={`px-3 py-1.5 rounded-full transition-colors ${
+                currentRoute === 'about' ? 'text-white bg-white/10 font-semibold' : 'hover:text-white hover:bg-white/5'
               }`}
             >
               About
             </button>
 
             <button
-              id="nav-link-blog"
               onClick={() => handleNavClick('blog')}
-              className={`px-3.5 py-2 text-sm font-medium transition-colors rounded-lg ${
-                currentRoute === 'blog'
-                  ? 'text-[#B7FF3C] bg-[#B7FF3C]/10'
-                  : 'text-[#B5BBC7] hover:text-white hover:bg-white/5'
+              className={`px-3 py-1.5 rounded-full transition-colors ${
+                currentRoute === 'blog' ? 'text-white bg-white/10 font-semibold' : 'hover:text-white hover:bg-white/5'
               }`}
             >
-              Blog
+              Knowledge Base
+            </button>
+
+            {/* Free SEO Tool Link */}
+            <button
+              onClick={() => handleNavClick('free-seo-tools')}
+              className={`px-3 py-1.5 rounded-full flex items-center space-x-1.5 transition-colors ${
+                currentRoute === 'free-seo-tools' ? 'text-[#00E59B] bg-emerald-500/10 font-semibold' : 'text-[#00E59B]/90 hover:text-[#00E59B] hover:bg-emerald-500/10'
+              }`}
+            >
+              <Wrench className="w-3 h-3" />
+              <span>Free SERP Tool</span>
             </button>
 
             <button
-              id="nav-link-contact"
               onClick={() => handleNavClick('contact')}
-              className={`px-3.5 py-2 text-sm font-medium transition-colors rounded-lg ${
-                currentRoute === 'contact'
-                  ? 'text-[#B7FF3C] bg-[#B7FF3C]/10'
-                  : 'text-[#B5BBC7] hover:text-white hover:bg-white/5'
+              className={`px-3 py-1.5 rounded-full transition-colors ${
+                currentRoute === 'contact' ? 'text-white bg-white/10 font-semibold' : 'hover:text-white hover:bg-white/5'
               }`}
             >
               Contact
             </button>
           </nav>
 
-          {/* Right Action CTA */}
-          <div className="hidden sm:flex items-center space-x-3">
-            <button
-              id="header-cta-btn"
-              onClick={onRequestReview}
-              className="relative group px-4 py-2.5 rounded-xl bg-[#B7FF3C] text-[#080A0F] text-xs sm:text-sm font-bold flex items-center space-x-1.5 hover:bg-[#A8F536] transition-all transform hover:-translate-y-0.5 shadow-[0_0_20px_-3px_rgba(183,255,60,0.35)] active:translate-y-0"
-              data-cursor="AUDIT"
-            >
-              <span>Request SEO Review</span>
-              <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </button>
-          </div>
+          {/* Right: Availability Status & Audit CTA */}
+          <div className="flex items-center space-x-2 sm:space-x-3">
+            <div className="hidden sm:flex items-center space-x-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[11px] font-medium text-[#00E59B]">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00E59B] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#00E59B]"></span>
+              </span>
+              <span className="font-mono text-[10px] font-bold">AVAILABLE FOR AUDITS</span>
+            </div>
 
-          {/* Mobile Menu Button */}
-          <div className="flex sm:hidden items-center space-x-2">
             <button
-              id="mobile-review-btn"
-              onClick={onRequestReview}
-              className="px-3 py-1.5 rounded-lg bg-[#B7FF3C] text-[#080A0F] text-xs font-bold"
+              id="header-audit-btn"
+              onClick={() => {
+                trackEvent('primary_cta_click', { cta_name: 'header_request_audit' });
+                onRequestReview();
+              }}
+              className="relative group px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs font-semibold text-[#060909] bg-[#00E59B] hover:bg-[#37F3B0] transition-all duration-200 shadow-[0_0_15px_rgba(0,229,155,0.3)] hover:shadow-[0_0_22px_rgba(0,229,155,0.5)] active:scale-95 flex items-center space-x-1.5"
             >
-              Review
+              <span>Request SEO Audit</span>
+              <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </button>
+
+            {/* Mobile Menu Hamburger */}
             <button
-              id="mobile-menu-toggle"
+              id="mobile-nav-toggle"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 rounded-xl bg-[#121722] border border-white/10 text-white hover:text-[#B7FF3C]"
-              aria-label="Toggle Menu"
+              className="lg:hidden p-1.5 rounded-full bg-white/5 border border-white/10 text-[#94A3B8] hover:text-white"
+              aria-label="Toggle Navigation Menu"
             >
               {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
-      </div>
 
-      {/* Mobile Full Screen Menu */}
-      {isMobileMenuOpen && (
-        <div className="fixed inset-0 top-[60px] bg-[#080A0F]/95 backdrop-blur-2xl z-50 p-6 flex flex-col justify-between overflow-y-auto lg:hidden">
-          <div className="space-y-6">
-            <div className="border-b border-white/10 pb-4">
-              <span className="text-xs font-mono text-[#B7FF3C] uppercase tracking-widest">Navigation</span>
-            </div>
-            
-            <div className="flex flex-col space-y-3">
-              {navItems.map((item) => (
-                <button
-                  key={item.route}
-                  onClick={() => handleNavClick(item.route)}
-                  className={`flex items-center justify-between text-left py-2.5 px-3 rounded-xl transition-all ${
-                    currentRoute === item.route
-                      ? 'bg-[#B7FF3C]/10 text-[#B7FF3C] font-bold'
-                      : 'text-[#F7F8FA] hover:text-[#B7FF3C] hover:bg-white/5'
-                  }`}
-                >
-                  <span className="text-xl font-display font-semibold">{item.label}</span>
-                  <span className="font-mono text-xs text-[#7D8595]">{item.num}</span>
-                </button>
-              ))}
+        {/* Mobile Navigation Drawer */}
+        {isMobileMenuOpen && (
+          <div className="lg:hidden mt-3 pt-3 border-t border-white/10 space-y-2 pb-2 animate-in fade-in duration-200">
+            <div className="grid grid-cols-2 gap-2 text-xs font-medium text-[#94A3B8]">
+              <button
+                onClick={() => handleNavClick('home')}
+                className="p-2 rounded-xl bg-white/5 text-left text-white font-semibold flex items-center justify-between"
+              >
+                <span>Home</span>
+                <span className="text-[9px] font-mono text-[#00E59B]">01</span>
+              </button>
+              <button
+                onClick={() => handleNavClick('portfolio')}
+                className="p-2 rounded-xl bg-white/5 text-left hover:text-white flex items-center justify-between"
+              >
+                <span>Case Studies</span>
+                <span className="text-[9px] font-mono text-[#5E736D]">02</span>
+              </button>
+              <button
+                onClick={() => handleNavClick('about')}
+                className="p-2 rounded-xl bg-white/5 text-left hover:text-white flex items-center justify-between"
+              >
+                <span>About</span>
+                <span className="text-[9px] font-mono text-[#5E736D]">03</span>
+              </button>
+              <button
+                onClick={() => handleNavClick('blog')}
+                className="p-2 rounded-xl bg-white/5 text-left hover:text-white flex items-center justify-between"
+              >
+                <span>Knowledge Base</span>
+                <span className="text-[9px] font-mono text-[#5E736D]">04</span>
+              </button>
+              <button
+                onClick={() => handleNavClick('free-seo-tools')}
+                className="p-2 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-left text-[#00E59B] font-bold flex items-center justify-between col-span-2"
+              >
+                <span>Free SERP Snippet &amp; Pixel Tool</span>
+                <span className="text-[9px] font-mono text-[#00E59B]">FREE TOOL</span>
+              </button>
+              <button
+                onClick={() => handleNavClick('contact')}
+                className="p-2 rounded-xl bg-white/5 text-left hover:text-white flex items-center justify-between col-span-2"
+              >
+                <span>Contact Daniyal</span>
+                <span className="text-[9px] font-mono text-[#5E736D]">DIRECT</span>
+              </button>
             </div>
 
-            <div className="pt-4 border-t border-white/10">
-              <span className="text-xs font-mono text-[#7D8595] uppercase tracking-wider block mb-3">
-                SEO Disciplines
+            <div className="pt-2 border-t border-white/5">
+              <span className="text-[10px] font-mono text-[#5E736D] uppercase block mb-1.5">
+                Core SEO Services
               </span>
-              <div className="grid grid-cols-2 gap-2">
-                {serviceSubItems.map((sub) => (
+              <div className="grid grid-cols-2 gap-1.5 text-xs">
+                {specializations.map((spec) => (
                   <button
-                    key={sub.route}
-                    onClick={() => handleNavClick(sub.route)}
-                    className="p-3 text-left rounded-xl bg-[#11151E] border border-white/8 hover:border-[#B7FF3C]/50 transition-colors"
+                    key={spec.title}
+                    onClick={() => handleNavClick(spec.route)}
+                    className="p-2 rounded-lg bg-emerald-500/5 border border-emerald-500/10 text-left text-white hover:border-emerald-500/30 truncate"
                   >
-                    <span className="text-xs font-bold text-white block">{sub.title}</span>
-                    <span className="text-[10px] text-[#7D8595] font-mono">Explore →</span>
+                    <span className="block font-semibold text-[11px] truncate">{spec.title}</span>
+                    <span className="text-[9px] text-[#5E736D] block font-mono">{spec.tag}</span>
                   </button>
                 ))}
               </div>
             </div>
-          </div>
 
-          <div className="pt-6 border-t border-white/10 mt-6 space-y-3">
-            <button
-              onClick={() => {
-                setIsMobileMenuOpen(false);
-                onRequestReview();
-              }}
-              className="w-full py-3.5 rounded-xl bg-[#B7FF3C] text-[#080A0F] font-bold text-center flex items-center justify-center space-x-2"
-            >
-              <Sparkles className="w-4 h-4" />
-              <span>Request Free SEO Review</span>
-              <ArrowUpRight className="w-4 h-4" />
-            </button>
-            <p className="text-center text-xs text-[#7D8595] font-mono">
-              Daniyal • Junior SEO Executive • Karachi, PK
-            </p>
+            <div className="pt-2 flex items-center justify-between">
+              <div className="flex items-center space-x-1.5 text-[11px] font-mono text-[#00E59B]">
+                <span className="h-2 w-2 rounded-full bg-[#00E59B] animate-pulse"></span>
+                <span>Karachi &amp; Remote</span>
+              </div>
+              <button
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  onRequestReview();
+                }}
+                className="px-3 py-1.5 rounded-full bg-[#00E59B] text-[#060909] text-xs font-bold"
+              >
+                Request Audit
+              </button>
+            </div>
           </div>
-        </div>
-      )}
-    </header>
+        )}
+      </header>
+    </div>
   );
 };

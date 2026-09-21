@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { PageRoute, CaseStudy } from '../types';
-import { CASE_STUDIES } from '../data/seoData';
-import { ArrowUpRight, CheckCircle2, AlertTriangle, Cpu, Search, MapPin, Eye, FileText } from 'lucide-react';
+import { ArrowUpRight, CheckCircle2, AlertTriangle, Cpu, Network, MapPin, TrendingUp, ChevronRight, ShieldCheck, ArrowRight } from 'lucide-react';
 
 interface CaseStudySectionProps {
   onRouteChange: (route: PageRoute) => void;
@@ -12,154 +11,195 @@ export const CaseStudySection: React.FC<CaseStudySectionProps> = ({
   onRouteChange,
   onSelectCaseStudy
 }) => {
-  const [selectedStudy, setSelectedStudy] = useState<CaseStudy | null>(null);
-
-  const handleOpenStudy = (study: CaseStudy) => {
-    if (onSelectCaseStudy) {
-      onSelectCaseStudy(study);
-    } else {
-      onRouteChange('portfolio');
+  const caseStudiesData = [
+    {
+      id: 'technical-seo-audit',
+      title: 'E-Commerce Technical Crawling & Canonical Indexation Overhaul',
+      category: 'Technical SEO • Crawl Efficiency',
+      clientType: 'Online Retail Store',
+      problem: 'Audit exercise focused on faceted-navigation crawl bloat, redirect chains, and conflicting canonical signals that can waste crawl resources.',
+      actions: [
+        'Crawled a representative e-commerce architecture in Screaming Frog',
+        'Implemented strict robots.txt disallow rules for query filter parameters',
+        'Mapped redirect-chain and canonical remediation rules for affected URL patterns',
+        'Injected JSON-LD Product & BreadcrumbList structured data schema'
+      ],
+      results: [
+        { label: 'Evidence Status', before: 'Exercise', after: 'Methodology documented', highlight: true },
+        { label: 'Primary Focus', before: 'Crawl bloat', after: 'Canonical + redirect plan', highlight: false },
+        { label: 'Production Result', before: 'Not claimed', after: 'Requires verified GSC data', highlight: false }
+      ],
+      tag: 'CRAWL DIAGNOSTIC'
+    },
+    {
+      id: 'keyword-intent-clustering',
+      title: 'B2B Commercial Keyword Clustering & Search Architecture',
+      category: 'Keyword Research • Content Architecture',
+      clientType: 'Industrial Equipment Supplier',
+      problem: 'High-volume content had zero search intent alignment, competing internally for identical terms (keyword cannibalization) while ignoring commercial buyer queries.',
+      actions: [
+        'Clustered a representative B2B keyword set by commercial intent and topic',
+        'Rebuilt URL taxonomy with strict parent-child folder architecture',
+        'Constructed internal link graph ensuring commercial money pages sit at depth ≤ 2',
+        'Aligned page H1-H3 document hierarchy with search intent profiles'
+      ],
+      results: [
+        { label: 'Evidence Status', before: 'Exercise', after: 'Architecture documented', highlight: true },
+        { label: 'Primary Focus', before: 'Cannibalization', after: 'Intent-to-URL map', highlight: false },
+        { label: 'Production Result', before: 'Not claimed', after: 'Requires verified GSC data', highlight: false }
+      ],
+      tag: 'TAXONOMY & INTENT'
+    },
+    {
+      id: 'local-seo-karachi-expansion',
+      title: 'Karachi Local Search Visibility Strategy',
+      category: 'Local SEO • Google Business Profile',
+      clientType: 'Corporate Consultancy (Karachi)',
+      problem: 'Strategy exercise focused on improving local relevance, citation consistency, and service-area landing-page quality for a Karachi business.',
+      actions: [
+        'Optimized Google Business Profile with localized primary category & geo-services',
+        'Mapped NAP consistency checks across relevant Pakistani business directories',
+        'Designed a location-page framework that avoids thin or doorway-style pages',
+        'Outlined a compliant customer review acquisition and response workflow'
+      ],
+      results: [
+        { label: 'Evidence Status', before: 'Exercise', after: 'Local plan documented', highlight: true },
+        { label: 'Primary Focus', before: 'Local relevance', after: 'GBP + citation framework', highlight: false },
+        { label: 'Production Result', before: 'Not claimed', after: 'Requires verified GBP/GSC data', highlight: false }
+      ],
+      tag: 'GEO AUTHORITY'
     }
-  };
+  ];
 
   return (
-    <section id="case-studies" className="py-24 sm:py-32 bg-[#0D1017] relative border-t border-b border-white/8">
+    <section id="case-studies" className="py-24 sm:py-32 bg-[#060909] relative border-t border-white/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Header */}
+        {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-          <div>
-            <div className="flex items-center space-x-2 mb-3">
-              <span className="text-xs font-mono uppercase tracking-widest text-[#B7FF3C] px-2.5 py-1 rounded bg-[#B7FF3C]/10 border border-[#B7FF3C]/20">
-                03 / SELECTED WORK
-              </span>
+          <div className="max-w-3xl text-left">
+            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-mono text-[#00E59B] uppercase tracking-wider mb-4">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#00E59B]" />
+              <span>SELECTED SEO EXERCISES &amp; CASE STUDIES</span>
             </div>
-            <h2 className="text-3xl sm:text-5xl font-extrabold text-[#F7F8FA] tracking-tight font-display">
-              SEO work, documented properly.
+            <h2 className="text-3xl sm:text-5xl font-extrabold text-[#F4FAF7] tracking-tight font-display leading-[1.12]">
+              SEO Diagnosis,{' '}
+              <span className="text-gradient-emerald">Documented Step by Step.</span>
             </h2>
-            <p className="mt-3 text-base text-[#B5BBC7] max-w-xl">
-              Real problem solving across technical crawling audits, keyword intent clustering, and localized search optimization.
+            <p className="mt-4 text-base sm:text-lg text-[#94A3B8] leading-relaxed">
+              These portfolio exercises demonstrate root-cause diagnosis, prioritization, and implementation planning. Verified client outcomes are only shown when supporting data is available.
             </p>
           </div>
 
           <button
             onClick={() => onRouteChange('portfolio')}
-            className="self-start md:self-auto px-5 py-3 rounded-xl bg-[#11151E] border border-white/10 text-white text-sm font-semibold hover:border-[#B7FF3C]/50 transition-all flex items-center space-x-2"
+            className="self-start md:self-auto px-5 py-3 rounded-full bg-[#0D1414] border border-white/10 text-white text-xs font-mono font-semibold hover:border-emerald-500/40 hover:text-[#00E59B] transition-all flex items-center space-x-2"
           >
-            <span>View All Case Studies</span>
-            <ArrowUpRight className="w-4 h-4 text-[#B7FF3C]" />
+            <span>View All Documentation</span>
+            <ArrowUpRight className="w-4 h-4 text-[#00E59B]" />
           </button>
         </div>
 
-        {/* Horizontal Case Studies Blocks */}
-        <div className="space-y-12">
-          {CASE_STUDIES.map((study, idx) => {
-            const isEven = idx % 2 === 0;
-
-            return (
-              <div
-                key={study.id}
-                id={`case-study-${study.id}`}
-                className="rounded-3xl bg-[#11151E] border border-white/10 hover:border-white/25 transition-all p-6 sm:p-10 shadow-2xl group overflow-hidden"
-              >
-                <div className={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center ${
-                  isEven ? '' : 'lg:flex-row-reverse'
-                }`}>
-                  
-                  {/* Visual Preview / Layered Diagnostics */}
-                  <div className={`lg:col-span-6 ${isEven ? 'order-1' : 'order-1 lg:order-2'}`}>
-                    <div className="relative rounded-2xl overflow-hidden bg-[#080A0F] border border-white/12 p-3 shadow-inner group-hover:border-[#B7FF3C]/40 transition-all">
-                      
-                      {/* Status Badge */}
-                      <div className="absolute top-5 left-5 z-20 px-3 py-1 rounded-md bg-[#080A0F]/90 backdrop-blur-md border border-white/15 text-[11px] font-mono font-bold text-[#B7FF3C] flex items-center space-x-1.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#B7FF3C]" />
-                        <span>{study.status}</span>
-                      </div>
-
-                      {/* Image Thumbnail */}
-                      <div className="relative h-64 sm:h-72 w-full rounded-xl overflow-hidden bg-[#161C28]">
-                        <img
-                          src={study.imageSrc}
-                          alt={study.title}
-                          className="w-full h-full object-cover grayscale contrast-110 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
-                          referrerPolicy="no-referrer"
-                          loading="lazy"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#080A0F]/90 via-[#080A0F]/20 to-transparent" />
-                      </div>
-
-                      {/* Floating Metric Strip */}
-                      {study.keyMetrics && (
-                        <div className="grid grid-cols-3 gap-2 mt-3 pt-2 border-t border-white/8 text-center font-mono">
-                          {study.keyMetrics.map((m, i) => (
-                            <div key={i} className="p-2 rounded-lg bg-[#161C28]/80 border border-white/5">
-                              <span className="text-xs sm:text-sm font-bold text-[#B7FF3C] block">{m.value}</span>
-                              <span className="text-[9px] text-[#7D8595] truncate block">{m.label}</span>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
+        {/* Stacked Bento Case Study Cards */}
+        <div className="space-y-8">
+          {caseStudiesData.map((study, idx) => (
+            <div
+              key={study.id}
+              className="rounded-3xl bg-[#080D0D]/90 border border-white/8 hover:border-emerald-500/30 transition-all duration-300 p-6 sm:p-9 shadow-[0_20px_50px_rgba(0,0,0,0.7)] group"
+            >
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                {/* Left Col: Problem, Actions Taken */}
+                <div className="lg:col-span-7 space-y-5 text-left">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="text-[10px] font-mono px-2.5 py-1 rounded bg-emerald-500/10 text-[#00E59B] font-bold border border-emerald-500/20">
+                      {study.tag}
+                    </span>
+                    <span className="text-xs font-mono text-[#5E736D]">
+                      {study.category} • {study.clientType}
+                    </span>
                   </div>
 
-                  {/* Details Breakdown */}
-                  <div className={`lg:col-span-6 space-y-4 ${isEven ? 'order-2' : 'order-2 lg:order-1'}`}>
-                    
-                    <div className="flex flex-wrap items-center gap-2">
-                      <span className="text-xs font-mono px-2.5 py-0.5 rounded-full bg-white/5 text-[#45E6FF] border border-white/5">
-                        {study.category}
-                      </span>
-                      <span className="text-xs font-mono text-[#7D8595]">
-                        {study.location}
-                      </span>
-                    </div>
+                  <h3 className="text-2xl font-bold text-white group-hover:text-[#00E59B] transition-colors font-display">
+                    {study.title}
+                  </h3>
 
-                    <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-[#B7FF3C] transition-colors leading-snug">
-                      {study.title}
-                    </h3>
-
-                    <div className="text-xs font-mono text-[#7D8595] bg-[#161C28] p-2.5 rounded-xl border border-white/5">
-                      <strong className="text-[#B5BBC7]">Context:</strong> {study.clientType}
-                    </div>
-
-                    {/* Challenge & Finding Preview */}
-                    <p className="text-sm text-[#B5BBC7] leading-relaxed">
-                      {study.challenge}
+                  {/* Problem Statement */}
+                  <div className="p-4 rounded-2xl bg-[#0D1414] border border-white/5 space-y-1">
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-[#5E736D] block">
+                      Crawl &amp; Architecture Hurdle:
+                    </span>
+                    <p className="text-xs text-[#94A3B8] leading-relaxed">
+                      {study.problem}
                     </p>
-
-                    {/* Tools Used */}
-                    <div className="pt-2">
-                      <span className="text-[11px] font-mono text-[#7D8595] uppercase block mb-1.5">
-                        Diagnostic Tools Used
-                      </span>
-                      <div className="flex flex-wrap gap-1.5">
-                        {study.toolsUsed.map((tool) => (
-                          <span
-                            key={tool}
-                            className="text-xs font-mono px-2 py-0.5 rounded bg-[#161C28] text-white border border-white/5"
-                          >
-                            {tool}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="pt-4 flex items-center space-x-3">
-                      <button
-                        onClick={() => onRouteChange('portfolio')}
-                        className="px-5 py-2.5 rounded-xl bg-[#B7FF3C] text-[#080A0F] text-xs sm:text-sm font-bold hover:bg-[#A8F536] transition-all flex items-center space-x-1.5"
-                      >
-                        <span>View Full Breakdown</span>
-                        <ArrowUpRight className="w-4 h-4" />
-                      </button>
-                    </div>
-
                   </div>
 
+                  {/* Engineered Actions */}
+                  <div className="space-y-2">
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-[#5E736D] block">
+                      Engineered Intervention:
+                    </span>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono">
+                      {study.actions.map((act, i) => (
+                        <div key={i} className="flex items-start space-x-2 text-[#94A3B8] p-2 rounded-xl bg-black/30 border border-white/5">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-[#00E59B] flex-shrink-0 mt-0.5" />
+                          <span className="leading-snug">{act}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
+
+                {/* Right Col: Measured Results & Before/After Metrics */}
+                <div className="lg:col-span-5 p-5 rounded-2xl bg-[#0D1414] border border-white/8 space-y-4">
+                  <div className="flex items-center justify-between pb-3 border-b border-white/5 text-[11px] font-mono">
+                    <span className="text-white font-bold flex items-center space-x-1.5">
+                      <TrendingUp className="w-3.5 h-3.5 text-[#00E59B]" />
+                      <span>Evidence &amp; Scope</span>
+                    </span>
+                    <span className="text-[#00FFD1]">Transparent Status</span>
+                  </div>
+
+                  <div className="space-y-3">
+                    {study.results.map((res, i) => (
+                      <div
+                        key={i}
+                        className={`p-3 rounded-xl border ${
+                          res.highlight
+                            ? 'bg-emerald-500/[0.06] border-emerald-500/25'
+                            : 'bg-black/30 border-white/5'
+                        }`}
+                      >
+                        <span className="text-[10px] font-mono text-[#5E736D] block">
+                          {res.label}
+                        </span>
+                        <div className="flex items-baseline justify-between mt-1 font-mono">
+                          <span className="text-xs text-[#5E736D] line-through">
+                            {res.before}
+                          </span>
+                          <span className={`text-sm font-bold ${res.highlight ? 'text-[#00E59B]' : 'text-white'}`}>
+                            {res.after}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="pt-2 flex items-center justify-between text-xs font-mono">
+                    <span className="text-[#5E736D]">Case Study #{idx + 1}</span>
+                    <button
+                      onClick={() => onRouteChange('portfolio')}
+                      className="text-[#00E59B] hover:text-[#00FFD1] flex items-center space-x-1 font-semibold"
+                    >
+                      <span>Read Full Report</span>
+                      <ChevronRight className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                </div>
+
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
 
       </div>
@@ -167,135 +207,117 @@ export const CaseStudySection: React.FC<CaseStudySectionProps> = ({
   );
 };
 
+/* 5-Step SEO Process Section */
 export const SeoProcessSection: React.FC = () => {
   const [activeStep, setActiveStep] = useState(0);
 
+  const steps = [
+    {
+      num: '01',
+      title: 'Diagnose',
+      subtitle: 'Technical Crawl & Server Log Audit',
+      desc: 'Executing custom Screaming Frog crawls and log file inspections. We isolate 301/404 chains, render-blocking scripts, indexing parameter leaks, and Core Web Vitals latency.',
+      deliverable: 'Technical Audit Matrix & Developer Fix Backlog'
+    },
+    {
+      num: '02',
+      title: 'Map',
+      subtitle: 'Commercial Intent & Topic Clustering',
+      desc: 'Grouping thousands of high-intent search terms into cohesive topic clusters. We align keywords with parent URLs, avoid internal cannibalization, and architect a 3-click hierarchy.',
+      deliverable: 'Commercial Taxonomy Map & Keyword Masterfile'
+    },
+    {
+      num: '03',
+      title: 'Engineer',
+      subtitle: 'On-Page Hierarchy & Schema Graph',
+      desc: 'Restructuring HTML document outlines, injecting deep JSON-LD entity schema (@type: ProfessionalService, Product), and redesigning internal link anchor text to channel link equity.',
+      deliverable: 'Structured Data Payloads & On-Page Outlines'
+    },
+    {
+      num: '04',
+      title: 'Deploy',
+      subtitle: 'Staging Validation & Googlebot Fetch',
+      desc: 'Validating fixes in staging or live code, running URL inspection in Google Search Console, pinging updated XML sitemaps, and checking live rendering via Chrome DevTools.',
+      deliverable: 'Deployment Verification & Indexing Pass'
+    },
+    {
+      num: '05',
+      title: 'Compound',
+      subtitle: 'GSC Trend Analysis & Query Expansion',
+      desc: 'Monitoring search impression velocity, ranking shifts, and user CTR. We continuously optimize high-impression low-CTR queries to turn steady search demand into compounding revenue.',
+      deliverable: 'Bi-Weekly Search Console Insights & Growth Roadmap'
+    }
+  ];
+
   return (
-    <section id="process" className="py-24 sm:py-32 bg-[#080A0F] relative">
+    <section id="process-section" className="py-24 sm:py-32 bg-[#060909] relative border-t border-white/5 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Sticky Desktop Process Composition */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-          
-          {/* Left Column: Headline */}
-          <div className="lg:col-span-5 lg:sticky lg:top-28 self-start space-y-5">
-            <div className="flex items-center space-x-2">
-              <span className="text-xs font-mono uppercase tracking-widest text-[#B7FF3C] px-2.5 py-1 rounded bg-[#B7FF3C]/10 border border-[#B7FF3C]/20">
-                04 / PROCESS
-              </span>
-            </div>
-
-            <h2 className="text-3xl sm:text-5xl font-extrabold text-[#F7F8FA] tracking-tight font-display leading-tight">
-              From search problem to{' '}
-              <span className="text-[#B7FF3C]">measurable action.</span>
-            </h2>
-
-            <p className="text-base text-[#B5BBC7] leading-relaxed">
-              SEO is not a one-time magic trick. It is a systematic feedback loop: discover the core bottleneck, eliminate technical friction, target real user intent, optimize page relevance, and track performance in Search Console.
-            </p>
-
-            <div className="p-4 rounded-2xl bg-[#11151E] border border-white/8 space-y-2">
-              <div className="text-xs font-mono text-[#B7FF3C] font-semibold uppercase tracking-wider">
-                Execution Guarantee
-              </div>
-              <p className="text-xs text-[#7D8595] leading-relaxed">
-                Clear deliverables at every step. You receive structured spreadsheets, verified crawl reports, and clear developer action plans.
-              </p>
-            </div>
+        {/* Header */}
+        <div className="max-w-3xl mb-16 text-left">
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-mono text-[#00E59B] uppercase tracking-wider mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#00E59B]" />
+            <span>THE 5-STEP FRAMEWORK</span>
           </div>
 
-          {/* Right Column: Interactive Step-by-Step Flow */}
-          <div className="lg:col-span-7 space-y-6">
-            {[
-              {
-                num: '01',
-                title: 'Understand',
-                subtitle: 'Business, Audience, Website & Goals',
-                desc: 'Every project starts with honest discovery. I look at your business model, customer journey in Karachi or global markets, and current search hurdles.',
-                deliverable: 'Discovery brief & commercial priority matrix'
-              },
-              {
-                num: '02',
-                title: 'Audit',
-                subtitle: 'Review Technical Health & Search Performance',
-                desc: 'A deep-dive diagnosis analyzing how search bots crawl, render, index, and evaluate your website. We identify status code errors, index bloat, and Core Web Vitals issues.',
-                deliverable: 'Screaming Frog crawl report & prioritized fix backlog'
-              },
-              {
-                num: '03',
-                title: 'Research',
-                subtitle: 'Analyze Keywords, Intent & Competitors',
-                desc: 'Identifying the exact queries potential clients use. I evaluate search intent, analyze SERP structures, group queries into topic clusters, and construct a logical URL architecture.',
-                deliverable: 'Categorized keyword master sheet & cluster map'
-              },
-              {
-                num: '04',
-                title: 'Optimize',
-                subtitle: 'Improve Content, Pages & Technical Elements',
-                desc: 'Executing targeted optimizations on metadata, heading hierarchy, contextual internal links, schema markup, and content depth to satisfy search intent better than competitors.',
-                deliverable: 'Page-by-page metadata, JSON-LD schema & internal linking'
-              },
-              {
-                num: '05',
-                title: 'Measure',
-                subtitle: 'Monitor Search Console, GA4 & Organic Performance',
-                desc: 'Tracking how Google reacts to changes. We monitor impressions, average ranking positions, organic clicks, index coverage, and actual inquiry leads.',
-                deliverable: 'GSC performance review & next iteration roadmap'
-              }
-            ].map((step, i) => {
-              const isActive = activeStep === i;
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-[#F4FAF7] tracking-tight font-display leading-[1.12]">
+            From Crawl Diagnosis to{' '}
+            <span className="text-gradient-emerald">Compounding Growth.</span>
+          </h2>
 
-              return (
-                <div
-                  key={step.num}
-                  onClick={() => setActiveStep(i)}
-                  onMouseEnter={() => setActiveStep(i)}
-                  className={`p-6 sm:p-8 rounded-3xl border transition-all cursor-pointer ${
-                    isActive
-                      ? 'bg-[#11151E] border-[#B7FF3C]/50 shadow-[0_0_30px_-5px_rgba(183,255,60,0.15)]'
-                      : 'bg-[#0D1017] border-white/8 hover:border-white/20'
-                  }`}
-                >
-                  <div className="flex items-start justify-between mb-3">
-                    <div className="flex items-center space-x-3">
-                      <span className={`text-2xl sm:text-3xl font-mono font-bold transition-colors ${
-                        isActive ? 'text-[#B7FF3C]' : 'text-[#7D8595]'
-                      }`}>
-                        {step.num}
-                      </span>
-                      <div>
-                        <h3 className={`text-lg sm:text-xl font-bold transition-colors ${
-                          isActive ? 'text-white' : 'text-[#B5BBC7]'
-                        }`}>
-                          {step.title}
-                        </h3>
-                        <span className="text-xs font-mono text-[#7D8595]">
-                          {step.subtitle}
-                        </span>
-                      </div>
-                    </div>
-                    <span className={`text-xs font-mono px-2 py-0.5 rounded ${
-                      isActive ? 'bg-[#B7FF3C] text-[#080A0F] font-bold' : 'bg-white/5 text-[#7D8595]'
+          <p className="mt-4 text-base sm:text-lg text-[#94A3B8] leading-relaxed">
+            Search engineering follows a strict procedural sequence. We resolve technical blockers before publishing, map intent before writing, and measure real search data rather than vanity metrics.
+          </p>
+        </div>
+
+        {/* Process Steps: Horizontal desktop, vertical mobile */}
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-4 relative">
+          {steps.map((step, idx) => {
+            const isActive = activeStep === idx;
+
+            return (
+              <div
+                key={step.num}
+                onClick={() => setActiveStep(idx)}
+                onMouseEnter={() => setActiveStep(idx)}
+                className={`p-6 rounded-2xl border transition-all duration-300 cursor-pointer flex flex-col justify-between ${
+                  isActive
+                    ? 'bg-[#0B1111] border-emerald-500/40 shadow-[0_15px_35px_rgba(0,0,0,0.8),0_0_20px_rgba(0,229,155,0.12)] -translate-y-1'
+                    : 'bg-[#080D0D]/70 border-white/6 hover:border-white/15'
+                }`}
+              >
+                <div>
+                  <div className="flex items-center justify-between pb-3 border-b border-white/5">
+                    <span className={`text-2xl font-mono font-bold transition-colors ${
+                      isActive ? 'text-[#00E59B]' : 'text-white/20'
                     }`}>
-                      {isActive ? 'ACTIVE STAGE' : 'STEP'}
+                      {step.num}
+                    </span>
+                    <span className={`text-[10px] font-mono px-2 py-0.5 rounded font-bold uppercase ${
+                      isActive ? 'bg-emerald-500/20 text-[#00E59B]' : 'bg-white/5 text-[#5E736D]'
+                    }`}>
+                      {step.title}
                     </span>
                   </div>
 
-                  <p className="text-sm text-[#B5BBC7] leading-relaxed mt-2">
+                  <h4 className="text-sm font-bold text-white mt-4 mb-2 font-display">
+                    {step.subtitle}
+                  </h4>
+
+                  <p className="text-xs text-[#94A3B8] leading-relaxed mb-4">
                     {step.desc}
                   </p>
-
-                  <div className="mt-4 pt-3 border-t border-white/5 flex items-center space-x-2 text-xs font-mono">
-                    <span className="text-[#7D8595]">Deliverable:</span>
-                    <span className={isActive ? 'text-[#45E6FF]' : 'text-white'}>
-                      {step.deliverable}
-                    </span>
-                  </div>
                 </div>
-              );
-            })}
-          </div>
 
+                <div className="pt-3 border-t border-white/5 text-[11px] font-mono">
+                  <span className="text-[#5E736D] block text-[9px] uppercase">Artifact:</span>
+                  <span className={isActive ? 'text-[#00FFD1] font-semibold' : 'text-white'}>
+                    {step.deliverable}
+                  </span>
+                </div>
+              </div>
+            );
+          })}
         </div>
 
       </div>

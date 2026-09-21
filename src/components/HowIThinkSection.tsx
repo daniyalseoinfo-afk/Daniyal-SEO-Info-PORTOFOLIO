@@ -1,106 +1,162 @@
 import React from 'react';
-import { Target, Search, Cpu, Sparkles, CheckCircle, BarChart3, AlertCircle } from 'lucide-react';
+import { Cpu, FileCode2, Network, TrendingUp, ArrowRight, CheckCircle2 } from 'lucide-react';
 
 export const HowIThinkSection: React.FC = () => {
+  const diagnosticSteps = [
+    {
+      num: '01',
+      phase: 'CRAWL',
+      title: 'Crawl Discovery & Budget',
+      question: 'Can Google efficiently discover, access, and revisit high-value commercial URLs without wasting crawl resources?',
+      icon: Cpu,
+      accent: 'emerald',
+      microData: [
+        { label: 'Crawl Budget Allocation', status: 'Optimized' },
+        { label: 'Redirect Chains & Loops', status: '0 Chains' },
+        { label: 'Crawl Depth Target', status: '≤ 3 Clicks' },
+        { label: 'Log Analysis', status: '200 OK Dominant' },
+      ],
+      description: 'Search engines allocate limited crawl budgets. Bloated JavaScript, pagination loops, and broken internal links choke bot discovery before rankings even begin.'
+    },
+    {
+      num: '02',
+      phase: 'INDEX',
+      title: 'Indexation & Canonicalization',
+      question: 'Are the primary revenue-driving URLs canonicalized, renderable, and confirmed in Google Search Console index?',
+      icon: FileCode2,
+      accent: 'cyan',
+      microData: [
+        { label: 'Canonical Self-Referencing', status: '100% Strict' },
+        { label: 'XML Sitemap Freshness', status: 'Real-time' },
+        { label: 'Index Bloat (Filters/Params)', status: 'Pruned' },
+        { label: 'Client-Side Rendering', status: 'Hydrated' },
+      ],
+      description: 'Being crawlable is meaningless if pages are marked noindex, canonicalized erroneously, or lost in the "Crawled - currently not indexed" graveyard.'
+    },
+    {
+      num: '03',
+      phase: 'RELEVANCE',
+      title: 'Entity & Semantic Relevance',
+      question: 'Does page architecture explicitly answer commercial intent and declare structured entity relationships to Google?',
+      icon: Network,
+      accent: 'emerald',
+      microData: [
+        { label: 'Entity Knowledge Graph', status: 'Mapped' },
+        { label: 'Topic Hub & Spokes', status: '12 Clusters' },
+        { label: 'JSON-LD Schema Hierarchy', status: 'Verified' },
+        { label: 'Search Intent Match', status: 'Commercial' },
+      ],
+      description: 'Modern search is semantic. Google evaluates how thoroughly content covers entities, latent semantic queries, and distinct user expectations across the SERP.'
+    },
+    {
+      num: '04',
+      phase: 'CONVERSION',
+      title: 'Commercial Conversion Action',
+      question: 'Does increased search impressions and ranking authority translate into qualified leads and revenue for the business?',
+      icon: TrendingUp,
+      accent: 'cyan',
+      microData: [
+        { label: 'High-Intent Query CTR', status: '18.4% Avg' },
+        { label: 'Qualified Lead Capture', status: 'Direct Flow' },
+        { label: 'Local Map Pack Visibility', status: 'Top 3' },
+        { label: 'Assisted Organic ROI', status: 'Compounding' },
+      ],
+      description: 'Rankings without qualified revenue is vanity. Every cluster is mapped back to commercial intent, targeted landing pages, and frictionless conversion points.'
+    },
+  ];
+
   return (
-    <section id="philosophy" className="py-24 sm:py-32 bg-[#0D1017] relative border-t border-b border-white/8">
+    <section id="philosophy" className="py-24 sm:py-32 bg-[#060909] relative border-t border-white/5 overflow-hidden">
+      {/* Background Ambience */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-emerald-500/5 rounded-full blur-[140px] pointer-events-none -z-10" />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Eyebrow */}
-        <div className="mb-4">
-          <span className="text-xs font-mono uppercase tracking-widest text-[#B7FF3C] px-2.5 py-1 rounded bg-[#B7FF3C]/10 border border-[#B7FF3C]/20">
-            HOW I THINK ABOUT SEO
-          </span>
-        </div>
-
-        {/* Two-Column Editorial Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          
-          {/* Left: Large Editorial Statement */}
-          <div className="lg:col-span-7 space-y-6">
-            <h2 className="text-3xl sm:text-5xl font-extrabold text-[#F7F8FA] leading-[1.15] font-display">
-              Better rankings start with understanding the{' '}
-              <span className="text-[#45E6FF]">right problem.</span>
-            </h2>
-
-            <p className="text-base sm:text-lg text-[#B5BBC7] leading-relaxed">
-              SEO isn&apos;t simply about stuffing keywords on a page or generating 50 generic blog posts. I look at how search engines understand a website, what potential customers in Karachi or international markets are actively searching for, what competitors are doing well, and where realistic ranking opportunities exist.
-            </p>
-
-            <div className="pt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="p-4 rounded-xl bg-[#11151E] border border-white/8">
-                <div className="flex items-center space-x-2 text-[#B7FF3C] font-semibold text-sm mb-1.5">
-                  <Target className="w-4 h-4" />
-                  <span>Search Intent First</span>
-                </div>
-                <p className="text-xs text-[#7D8595] leading-relaxed">
-                  Satisfying query intent matters more than raw keyword repetition.
-                </p>
-              </div>
-
-              <div className="p-4 rounded-xl bg-[#11151E] border border-white/8">
-                <div className="flex items-center space-x-2 text-[#45E6FF] font-semibold text-sm mb-1.5">
-                  <Cpu className="w-4 h-4" />
-                  <span>Clean Site Architecture</span>
-                </div>
-                <p className="text-xs text-[#7D8595] leading-relaxed">
-                  Eliminating crawl blocks, index bloat, and render lag gives Google clear signals.
-                </p>
-              </div>
-            </div>
+        {/* Section Header */}
+        <div className="max-w-3xl mb-16 text-left">
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-mono text-[#00E59B] uppercase tracking-wider mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#00E59B]" />
+            <span>HOW I THINK</span>
           </div>
 
-          {/* Right: Diagnosis & Verification Flow Card */}
-          <div className="lg:col-span-5 p-6 rounded-2xl bg-[#11151E] border border-white/12 shadow-2xl relative overflow-hidden">
-            <div className="text-xs font-mono uppercase tracking-wider text-[#7D8595] pb-3 border-b border-white/8 flex items-center justify-between">
-              <span>SEO Diagnostic Framework</span>
-              <span className="text-[#B7FF3C]">Karachi • PK</span>
-            </div>
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-[#F4FAF7] tracking-tight leading-[1.12] font-display">
+            SEO Problems Are Usually{' '}
+            <span className="text-gradient-emerald">
+              Architecture Problems
+            </span>{' '}
+            First.
+          </h2>
 
-            <div className="mt-5 space-y-4">
-              <div className="flex items-start space-x-3 p-3 rounded-xl bg-[#161C28] border border-white/5">
-                <div className="w-6 h-6 rounded-full bg-red-500/20 text-red-400 flex items-center justify-center font-mono text-xs font-bold flex-shrink-0 mt-0.5">
-                  ✕
-                </div>
-                <div>
-                  <h4 className="text-xs font-bold text-white uppercase tracking-wider">The Common Mistake</h4>
-                  <p className="text-xs text-[#7D8595] mt-0.5">
-                    Targeting high-volume keywords without satisfying intent, or attempting to rank a site that Google cannot crawl properly.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-3 p-3 rounded-xl bg-[#161C28] border border-[#B7FF3C]/30">
-                <div className="w-6 h-6 rounded-full bg-[#B7FF3C]/20 text-[#B7FF3C] flex items-center justify-center font-mono text-xs font-bold flex-shrink-0 mt-0.5">
-                  ✓
-                </div>
-                <div>
-                  <h4 className="text-xs font-bold text-[#B7FF3C] uppercase tracking-wider">The Daniyal Approach</h4>
-                  <p className="text-xs text-[#B5BBC7] mt-0.5">
-                    Diagnose root technical blocks → Map high-intent keyword clusters → Optimize page hierarchy → Measure real Search Console trends.
-                  </p>
-                </div>
-              </div>
-
-              {/* Verified Checklist */}
-              <div className="pt-2 space-y-2 text-xs font-mono text-[#B5BBC7]">
-                <div className="flex items-center justify-between py-1 border-b border-white/5">
-                  <span className="text-[#7D8595]">Technical Accessibility</span>
-                  <span className="text-[#B7FF3C]">100% Crawlable</span>
-                </div>
-                <div className="flex items-center justify-between py-1 border-b border-white/5">
-                  <span className="text-[#7D8595]">Commercial Intent Match</span>
-                  <span className="text-[#45E6FF]">High Precision</span>
-                </div>
-                <div className="flex items-center justify-between py-1">
-                  <span className="text-[#7D8595]">Measurement Base</span>
-                  <span className="text-white">GSC & GA4 Real Data</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
+          <p className="mt-4 text-base sm:text-lg text-[#94A3B8] leading-relaxed">
+            Search engines do not rank keywords; they evaluate crawl access, indexation pipelines, entity authority, and user satisfaction. Here is the diagnostic sequence I apply to every web architecture.
+          </p>
         </div>
+
+        {/* 4 Connected Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative">
+          {diagnosticSteps.map((step, idx) => {
+            const Icon = step.icon;
+            const isEmerald = step.accent === 'emerald';
+            return (
+              <div
+                key={step.num}
+                className="rounded-2xl bg-[#080D0D]/90 border border-white/8 hover:border-emerald-500/30 p-6 flex flex-col justify-between transition-all duration-300 group hover:-translate-y-1 hover:shadow-[0_15px_30px_rgba(0,0,0,0.8),0_0_20px_rgba(0,229,155,0.08)] relative"
+              >
+                {/* Connector Arrow (desktop) */}
+                {idx < 3 && (
+                  <div className="hidden lg:flex absolute -right-3 top-1/2 -translate-y-1/2 z-20 w-6 h-6 rounded-full bg-[#0D1414] border border-white/10 items-center justify-center text-[#5E736D] group-hover:text-[#00E59B] group-hover:border-emerald-500/30 transition-colors">
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </div>
+                )}
+
+                <div>
+                  {/* Card Header: Step number & Phase badge */}
+                  <div className="flex items-center justify-between pb-4 border-b border-white/5">
+                    <span className="text-2xl font-mono font-bold text-white/30 group-hover:text-[#00E59B] transition-colors">
+                      {step.num}
+                    </span>
+                    <span className="text-[10px] font-mono font-bold tracking-widest uppercase px-2 py-0.5 rounded bg-emerald-500/10 text-[#00E59B] border border-emerald-500/20">
+                      {step.phase}
+                    </span>
+                  </div>
+
+                  {/* Icon & Title */}
+                  <div className="flex items-center space-x-3 mt-4 mb-2">
+                    <div className="w-8 h-8 rounded-xl bg-[#0D1414] border border-white/10 flex items-center justify-center text-[#00E59B] group-hover:border-emerald-400/40 transition-colors">
+                      <Icon className="w-4 h-4" />
+                    </div>
+                    <h3 className="text-base font-bold text-white tracking-tight">
+                      {step.title}
+                    </h3>
+                  </div>
+
+                  {/* Question Focus */}
+                  <p className="text-xs text-[#00FFD1] font-medium mb-3 italic">
+                    &ldquo;{step.question}&rdquo;
+                  </p>
+
+                  <p className="text-xs text-[#94A3B8] leading-relaxed mb-4">
+                    {step.description}
+                  </p>
+                </div>
+
+                {/* Micro-Data Diagnostic Box */}
+                <div className="pt-3 border-t border-white/5 space-y-1.5 text-[11px] font-mono">
+                  {step.microData.map((item) => (
+                    <div key={item.label} className="flex items-center justify-between text-[#5E736D]">
+                      <span className="truncate pr-2">{item.label}</span>
+                      <span className="text-[#F4FAF7] font-semibold flex-shrink-0">
+                        {item.status}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
+              </div>
+            );
+          })}
+        </div>
+
       </div>
     </section>
   );

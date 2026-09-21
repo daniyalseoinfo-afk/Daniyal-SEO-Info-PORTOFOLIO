@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://daniyalseoportfolio.netlify.app/sitemap.xml
+Sitemap: https://daniyalseoinfo-afk.github.io/Daniyal-SEO-Info-PORTOFOLIO/sitemap.xml

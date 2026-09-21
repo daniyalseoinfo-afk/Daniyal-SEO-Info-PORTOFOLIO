@@ -1,75 +1,154 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-display: "Manrope", "Plus Jakarta Sans", sans-serif;
+  --font-sans: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Poppins", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
-  --color-bg-primary: #080A0F;
-  --color-bg-secondary: #0D1017;
-  --color-surface-elevated: #11151E;
-  --color-surface-card: #121722;
-  --color-surface-soft: #161C28;
+  --color-bg-primary: #060909;
+  --color-bg-secondary: #080D0D;
+  --color-surface-elevated: #0B1111;
+  --color-surface-card: #0D1414;
+  --color-surface-soft: #111B1B;
 
-  --color-border-subtle: rgba(255, 255, 255, 0.08);
-  --color-border-strong: rgba(255, 255, 255, 0.14);
+  --color-border-subtle: rgba(0, 229, 155, 0.08);
+  --color-border-strong: rgba(0, 229, 155, 0.18);
+  --color-border-cyan: rgba(0, 255, 209, 0.16);
 
-  --color-text-primary: #F7F8FA;
-  --color-text-secondary: #B5BBC7;
-  --color-text-muted: #7D8595;
+  --color-text-primary: #F4FAF7;
+  --color-text-secondary: #94A3B8;
+  --color-text-muted: #5E736D;
 
-  --color-lime-accent: #B7FF3C;
-  --color-lime-soft: #A8F536;
-  --color-cyan-accent: #45E6FF;
-  --color-violet-accent: #8B5CFF;
+  --color-emerald-accent: #00E59B;
+  --color-emerald-soft: #37F3B0;
+  --color-cyan-accent: #00FFD1;
+  --color-teal-accent: #00CFC8;
 }
 
 @layer base {
   * {
-    border-color: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.07);
   }
   
-  html {
-    font-family: var(--font-sans);
-    background-color: #080A0F;
-    color: #F7F8FA;
+  html, body {
+    font-family: "Poppins", sans-serif;
+    letter-spacing: 0;
+    line-height: 1.6;
+    background-color: #060909;
+    color: #F4FAF7;
     color-scheme: dark;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-display);
-    letter-spacing: -0.025em;
+    font-family: "Poppins", sans-serif;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
   }
 
-  code, pre, .font-mono {
+  h1 {
+    font-weight: 800;
+  }
+
+  h2 {
+    font-weight: 700;
+  }
+
+  h3 {
+    font-weight: 600;
+  }
+
+  button, input, select, textarea {
+    font-family: "Poppins", sans-serif;
+    letter-spacing: 0;
+  }
+
+  code, pre {
     font-family: var(--font-mono);
+  }
+}
+
+/* High-Impact Editorial Heading (Matching Reference Typography Style) */
+.headline-editorial {
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.98;
+  color: #FFFFFF;
+}
+
+@media (max-width: 1024px) {
+  .headline-editorial {
+    letter-spacing: -0.03em;
+    line-height: 1.0;
+  }
+}
+
+@media (max-width: 640px) {
+  .headline-editorial {
+    letter-spacing: -0.02em;
+    line-height: 1.04;
   }
 }
 
 /* Technical Subtle Grid */
 .bg-tech-grid {
-  background-size: 32px 32px;
+  background-size: 40px 40px;
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    linear-gradient(to right, rgba(0, 229, 155, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 229, 155, 0.025) 1px, transparent 1px);
 }
 
 .bg-tech-dots {
-  background-size: 24px 24px;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 28px 28px;
+  background-image: radial-gradient(rgba(0, 255, 209, 0.06) 1px, transparent 1px);
+}
+
+/* Radial ambient lighting */
+.ambient-emerald {
+  background: radial-gradient(circle at 50% 0%, rgba(0, 229, 155, 0.12) 0%, rgba(6, 9, 9, 0) 70%);
+}
+
+.ambient-cyan {
+  background: radial-gradient(circle at 80% 20%, rgba(0, 255, 209, 0.08) 0%, rgba(6, 9, 9, 0) 65%);
 }
 
 /* Custom glow utility */
-.lime-glow {
-  box-shadow: 0 0 40px -10px rgba(183, 255, 60, 0.22);
+.emerald-glow {
+  box-shadow: 0 0 45px -10px rgba(0, 229, 155, 0.25);
 }
 
-.lime-glow-sm {
-  box-shadow: 0 0 20px -5px rgba(183, 255, 60, 0.28);
+.emerald-glow-sm {
+  box-shadow: 0 0 24px -6px rgba(0, 229, 155, 0.28);
 }
 
 .cyan-glow {
-  box-shadow: 0 0 35px -8px rgba(69, 230, 255, 0.22);
+  box-shadow: 0 0 40px -8px rgba(0, 255, 209, 0.22);
+}
+
+.hud-panel {
+  background: linear-gradient(135deg, rgba(13, 20, 20, 0.85) 0%, rgba(8, 13, 13, 0.95) 100%);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 229, 155, 0.12);
+  box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.8), 0 0 25px -10px rgba(0, 229, 155, 0.06);
+}
+
+.bento-card {
+  background: linear-gradient(145deg, rgba(13, 20, 20, 0.7) 0%, rgba(11, 17, 17, 0.85) 100%);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bento-card:hover {
+  border-color: rgba(0, 229, 155, 0.24);
+  box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.7), 0 0 20px -8px rgba(0, 229, 155, 0.14);
+}
+
+/* Gradient Text */
+.text-gradient-emerald {
+  background: linear-gradient(135deg, #00E59B 0%, #00FFD1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* Marquee continuous animation */
@@ -81,7 +160,7 @@
 .animate-marquee {
   display: flex;
   width: max-content;
-  animation: marquee 35s linear infinite;
+  animation: marquee 40s linear infinite;
 }
 
 .animate-marquee:hover {
@@ -95,15 +174,31 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #080A0F;
+  background: #060909;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #161C28;
+  background: #111B1B;
   border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(0, 229, 155, 0.1);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #B7FF3C;
+  background: #00E59B;
+}
+
+/* Subtle pulse dot */
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.15);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 2.4s ease-in-out infinite;
 }

@@ -42,7 +42,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
       />
 
       {/* Interactive Diagnostic Tool Section */}
-      <section className="py-12 bg-[#080A0F]">
+      <section className="py-12 bg-[#060909]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <LiveSeoInspectorTool onRequestReview={onRequestReview} />
         </div>

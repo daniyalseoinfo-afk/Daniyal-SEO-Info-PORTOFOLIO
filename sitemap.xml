@@ -1,53 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://daniyalseoportfolio.netlify.app/</loc>
-    <changefreq>monthly</changefreq>
+    <loc>https://daniyalseoinfo-afk.github.io/Daniyal-SEO-Info-PORTOFOLIO/</loc>
+    <lastmod>2026-09-18</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://daniyalseoportfolio.netlify.app/seo-services-in-karachi</loc>
+    <loc>https://daniyalseoinfo-afk.github.io/Daniyal-SEO-Info-PORTOFOLIO/seo-services-in-karachi</loc>
+    <lastmod>2026-09-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://daniyalseoportfolio.netlify.app/technical-seo-services-karachi</loc>
+    <loc>https://daniyalseoinfo-afk.github.io/Daniyal-SEO-Info-PORTOFOLIO/technical-seo-services-karachi</loc>
+    <lastmod>2026-09-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://daniyalseoinfo-afk.github.io/Daniyal-SEO-Info-PORTOFOLIO/on-page-seo-services-karachi</loc>
+    <lastmod>2026-09-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://daniyalseoportfolio.netlify.app/on-page-seo-services-karachi</loc>
+    <loc>https://daniyalseoinfo-afk.github.io/Daniyal-SEO-Info-PORTOFOLIO/local-seo-services-karachi</loc>
+    <lastmod>2026-09-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://daniyalseoportfolio.netlify.app/local-seo-services-karachi</loc>
+    <loc>https://daniyalseoinfo-afk.github.io/Daniyal-SEO-Info-PORTOFOLIO/keyword-research-services-karachi</loc>
+    <lastmod>2026-09-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://daniyalseoportfolio.netlify.app/keyword-research-services-karachi</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://daniyalseoportfolio.netlify.app/portfolio</loc>
+    <loc>https://daniyalseoinfo-afk.github.io/Daniyal-SEO-Info-PORTOFOLIO/portfolio</loc>
+    <lastmod>2026-09-18</lastmod>
     <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://daniyalseoinfo-afk.github.io/Daniyal-SEO-Info-PORTOFOLIO/about</loc>
+    <lastmod>2026-09-18</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://daniyalseoportfolio.netlify.app/about</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://daniyalseoportfolio.netlify.app/blog</loc>
+    <loc>https://daniyalseoinfo-afk.github.io/Daniyal-SEO-Info-PORTOFOLIO/blog</loc>
+    <lastmod>2026-09-18</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://daniyalseoportfolio.netlify.app/contact</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
+    <loc>https://daniyalseoinfo-afk.github.io/Daniyal-SEO-Info-PORTOFOLIO/free-seo-tools/serp-preview</loc>
+    <lastmod>2026-09-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://daniyalseoinfo-afk.github.io/Daniyal-SEO-Info-PORTOFOLIO/contact</loc>
+    <lastmod>2026-09-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>
